@@ -1,327 +1,700 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Hamish Wordsworth</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-      background-image: url('background.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Animal Tales</title>
 
-    /* --- Top Disclaimer --- */
-    .top-disclaimer {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      text-align: center;
-      background-color: black;
-      color: black;
-      text-transform: uppercase;
-      -webkit-text-stroke: 1px white;
-      padding: 0 5px;
-      z-index: 1000;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    /* --- Bottom Disclaimer --- */
-    .bottom-disclaimer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-      background-color: black;
-      color: black;
-      text-transform: uppercase;
-      -webkit-text-stroke: 1px white;
-      padding: 0 5px;
-      z-index: 1000;
-    }
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    color: #222;
+    overflow: hidden;
+}
 
-    /* --- Social Icons Above Bottom Disclaimer --- */
-    .bottom-section {
-      position: fixed;
-      bottom: 35px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      pointer-events: auto;
-      z-index: 1000;
-    }
+body { background: #fff; }
 
-    .bottom-section img {
-      width: 48px;
-      height: 48px;
-    }
+.page {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
 
-    /* --- Top Section Wrapper --- */
-    .top-section-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
-    }
+.watermark {
+    position: fixed;
+    inset: 0;
+    background-image: url("Series/World Animal Tales Logo.png"), url("Series/World Animal Tales Logo.png"), url("Series/World Animal Tales Logo.png");
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: left 90%, center 90%, right 90%;
+    background-size: 500px 500px, 500px 500px, 500px 500px;
+    filter: saturate(65%);
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+}
 
-    /* --- Top Section (now 4 splits) --- */
-    .top-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 1000px; /* increased width to allow spacing */
-      padding: 1rem;
-      box-sizing: border-box;
-      margin-bottom: 40px;
-    }
+.content {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 18px 0;
+}
 
-    /* --- Split Sections --- */
-    .split-left { width: 0%; } /* empty left space */
-    .text { width: 35%; margin-left: 0px; } /* Hamish text */
-    .image { width: 20%; display: flex; justify-content: center; align-items: center; }
-    .top-linkbox { width: 20%; display: flex; justify-content: center; align-items: center; }
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 150px;
+    flex-shrink: 0;
+}
 
-    /* --- Hamish Text --- */
-    .text h1 { margin: 0; }
-    .text p { color: white; margin-top: 5px; }
+.author-side {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex: 1;
+}
 
-    /* --- Hamish Image --- */
-    .image img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      width: 105px;
-    }
+.author-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
 
-    /* --- Top Link Box --- */
-    .top-linkbox a {
-      display: block;
-      padding: 10px 15px;
-      text-align: center;
-      border: 1px solid white;
-      color: white;
-      text-decoration: none;
-      background-color: transparent;
-      font-weight: bold;
-      border-radius: 5px;
-    }
+.statement {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3;
+    max-width: 700px;
+    margin-left: 250px;
+    text-align: center;
+}
 
-    /* --- Carousel Wrapper for Scaling --- */
-    .carousel-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transform: scale(1.5);
-      transform-origin: center top;
-      margin: 5px 0;
-    }
+.logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
 
-    /* --- Carousel Section --- */
-    .carousel {
-      display: block;
-      margin: 0 auto;
-      position: relative;
-      max-width: 1125px;
-      overflow: hidden;
-      border-radius: 10px;
-      background: transparent;
-    }
 
-    .slide {
-      display: flex;
-      transition: transform 0.5s ease;
-      justify-content: center;
-      align-items: center;
-    }
+.language-option,
+.book-option,
+.site-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
 
-    .slide img {
-      height: 450px;
-      width: auto;
-      object-fit: contain;
-    }
+input[type="radio"] {
+    cursor: pointer;
+    margin: 0;
+}
 
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2rem;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 50%;
-      z-index: 10;
-    }
+#selectionArea {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 35px;
+    flex: 1;
+    min-height: 0;
+    margin-top: 150px;
+}
 
-    .arrow.left { left: 10px; }
-    .arrow.right { right: 10px; }
+.selection-column {
+    min-width: 210px;
+    max-width: 330px;
+}
 
-    /* --- Core Strip --- */
-    #carousel-container {
-      width: 600px;
-      margin: auto;
-      overflow: hidden;
-    }
+.selection-column.book-column {
+    min-width: 300px;
+}
 
-    #carousel-strip {
-      display: flex;
-      transition: transform 0.3s ease;
-    }
+.column-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
 
-    #carousel-strip img {
-      width: 150px;
-      height: auto;
-      flex-shrink: 0;
-    }
+.book-option {
+    line-height: 1.25;
+    margin: 0;
+    padding: 1px 0;
+}
 
-  </style>
+.language-list,
+.site-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    gap: 3px 14px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.special-thanks {
+    flex-shrink: 0;
+    margin-top: 0;
+    padding: 5px 0 8px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.2;
+}
+</style>
 </head>
+
 <body>
+<div class="page">
+<div class="watermark"></div>
 
-  <!-- Top Disclaimer 
-  <div class="top-disclaimer">
-    <span class="highlight">As an Amazon Associate I earn from qualifying purchases</span>
-  </div> -->
+<div class="content">
 
-  <!-- Top Section -->
-  <div class="top-section-wrapper">
-    <div class="top-section">
-      <div class="split-left"></div>
-      <div class="text">
-        <h1><span style="color: white;">H</span><span style="font-size:0.6em; color:yellow; vertical-align: top;">amish</span></h1>
-        <h1><span style="color: white;">W</span><span style="font-size:0.6em; color:yellow;">ordsworth</span></h1>
-        <p>Dive into tales of survival, discovery, and wonder. Your next adventure awaits.<br>***** Click on any picture or box<br>and see where it takes you *****</p>
-      </div>
-      <div class="image">
-        <a href="https://www.amazon.com/author/hamishwordsworth.url" target="_blank">
-          <img src="Hamish.png" alt="Hamish Wordsworth">
-        </a>
-      </div>
-      <div class="top-linkbox">
-        <a href="Page 2.html">The<br>Oblivion<br>storyline</a>
-      </div>
-       <h2><span style="color: white;">FREE<br>to read on<br>Kindle Unlimited</span></h2>
+<header>
+    <div class="author-side">
+        <img class="author-photo"
+             src="Susan Sangam.png"
+             alt="Susan Sangam">
+
+        <div class="statement" id="statement"></div>
     </div>
-  </div>
 
-  <!-- Carousel Section -->
-  <div class="carousel-wrapper">
-    <div class="carousel">
-      <button class="arrow left" onclick="moveSlide(-1)">←</button>
-      <div id="carousel-container">
-        <div id="carousel-strip">
-          <!-- 14 Book Images -->
-          <a href="https://amzn.to/4nUrTaR" target="_blank"><img src="book covers/Jagat.jpg" alt="Jagat"></a>
-          <a href="https://amzn.to/3Mfs5UP" target="_blank"><img src="book covers/AotD.jpg" alt="Armies of the Dwara"></a>
-          <a href="https://amzn.to/49t1BZo" target="_blank"><img src="book covers/The Nahuatl.jpg" alt="The Nahuatl"></a>
-          <a href="https://amzn.to/42cEm1x" target="_blank"><img src="book covers/1.jpg" alt="Book 1"></a>
-          <a href="https://amzn.to/4nMvQP8" target="_blank"><img src="book covers/2.jpg" alt="Book 2"></a>
-          <a href="https://amzn.to/46uWJS0" target="_blank"><img src="book covers/3.jpg" alt="Book 3"></a>
-          <a href="https://amzn.to/4h5z0eR" target="_blank"><img src="book covers/4.jpg" alt="Book 4"></a>
-          <a href="https://amzn.to/4gPVUXk" target="_blank"><img src="book covers/5.jpg" alt="Book 5"></a>
-          <a href="https://amzn.to/4mGzf0X" target="_blank"><img src="book covers/6.jpg" alt="Book 6"></a>
-          <a href="https://amzn.to/46JFXgQ" target="_blank"><img src="book covers/7.jpg" alt="Book 7"></a>
-          <a href="https://amzn.to/46ZqKJI" target="_blank"><img src="book covers/8.jpg" alt="Book 8"></a>
-          <a href="https://amzn.to/3VCMV23" target="_blank"><img src="book covers/9.jpg" alt="Book 9"></a>
-          <a href="https://amzn.to/4gMaq27" target="_blank"><img src="book covers/10.jpg" alt="Book 10"></a>
-          <a href="https://amzn.to/4ak2lkd" target="_blank"><img src="book covers/Samsara.jpg" alt="Samsara"></a>
-          <a href="https://amzn.to/49b991c" target="_blank"><img src="book covers/Vithara.jpg" alt="Vithara"></a>
-          <a href="https://amzn.to/49cT1Of" target="_blank"><img src="book covers/Prarambha.jpg" alt="Prarambha"></a>
-          <a href="https://amzn.to/3OfQZov" target="_blank"><img src="book covers/Purva.jpg" alt="Purva"></a>
-          <a href="https://amzn.to/4sXSrLL" target="_blank"><img src="book covers/Uttara.jpg" alt="Uttara"></a>
-          <a href="https://amzn.to/46OCsWn" target="_blank"><img src="book covers/Head shoulders Knees and Toes.jpg" alt="Head shoulders Knees and Toes"></a>
-          <a href="https://amzn.to/46Hqeid" target="_blank"><img src="book covers/Please Eat Cookie Mummy.jpg" alt="Please Eat Cookie Mummy"></a>
-          <a href="https://amzn.to/481BfgA" target="_blank"><img src="book covers/Please Eat Cookie Daddy.jpg" alt="Please Eat Cookie Daddy"></a>
-          <a href="https://amzn.to/3WbHsiG" target="_blank"><img src="book covers/Cuddles.jpg" alt="Cuddles"></a>
-          <a href="https://amzn.to/47zDTs3" target="_blank"><img src="book covers/Asunder.jpg" alt="Asunder"></a>
-          <a href="https://amzn.to/42qhADo" target="_blank"><img src="book covers/OF.jpg" alt="Obedient Flesh"></a>
-          <a href="https://amzn.to/4tKwqk3" target="_blank"><img src="book covers/OF Part 1.jpg" alt="Obedient Flesh Part 1"></a>
-          <a href="https://amzn.to/4kSW8in" target="_blank"><img src="book covers/OF Part 2.jpg" alt="Obedient Flesh Part 2"></a>
-          <a href="https://amzn.to/4aCwKZt" target="_blank"><img src="book covers/OF Part 3.jpg" alt="Obedient Flesh Part 3"></a>
-          <a href="https://www.amazon.com/dp/B0GX77L4YT" target="_blank"><img src="book covers/Colouring Book - Jagat.jpg" alt="Colouring Book - Jagat"></a>
-        </div>
-      </div>
-      <button class="arrow right" onclick="moveSlide(1)">→</button>
+    <img class="logo"
+         src="Series/World Animal Tales Logo.png"
+         alt="World Animal Tales">
+</header>
+
+
+<div id="selectionArea">
+
+    <div class="selection-column book-column">
+        <div id="bookList" class="column-list"></div>
     </div>
-  </div>
 
-  <!-- Carousel Logic -->
-  <script>
-    const carouselStrip = document.getElementById("carousel-strip");
-    const originalImages = Array.from(carouselStrip.children);
-    const totalImages = originalImages.length;
-    const visibleCount = 4;
-    let currentIndex = 0;
+    <div id="bookLanguageColumn" class="selection-column hidden">
+        <div id="bookLanguageList" class="language-list"></div>
+    </div>
 
-    const firstClones = originalImages.slice(0, visibleCount).map(img => img.cloneNode(true));
-    const lastClones = originalImages.slice(-visibleCount).map(img => img.cloneNode(true));
+    <div id="siteColumn" class="selection-column hidden">
+        <div id="siteList" class="site-list"></div>
+    </div>
 
-    firstClones.forEach(clone => carouselStrip.appendChild(clone));
-    lastClones.reverse().forEach(clone => carouselStrip.insertBefore(clone, carouselStrip.firstChild));
+</div>
 
-    currentIndex = visibleCount;
-    carouselStrip.style.transform = `translateX(${-currentIndex * 150}px)`;
+<div class="special-thanks" id="specialThanks"></div>
 
-    function moveSlide(direction) {
-      currentIndex += direction;
-      carouselStrip.style.transition = "transform 0.3s ease";
-      carouselStrip.style.transform = `translateX(${-currentIndex * 150}px)`;
+</div>
+</div>
 
-      if (currentIndex === 0) {
-        setTimeout(() => {
-          carouselStrip.style.transition = "none";
-          currentIndex = totalImages;
-          carouselStrip.style.transform = `translateX(${-currentIndex * 150}px)`;
-        }, 310);
-      } else if (currentIndex === totalImages + visibleCount) {
-        setTimeout(() => {
-          carouselStrip.style.transition = "none";
-          currentIndex = visibleCount;
-          carouselStrip.style.transform = `translateX(${-currentIndex * 150}px)`;
-        }, 310);
-      }
+<script>
+/* =========================================================
+   BOOK DATABASE
+   Only the published title, language code and ASIN are stored.
+   ========================================================= */
+
+const books = [
+
+/* =========================================================
+   BOOK 1
+   ========================================================= */
+
+{
+    book: "book1",
+    title: "The Cubs' Mission",
+    lang: "en",
+    asin: "B0H9LH54M3"
+},
+{
+    book: "book1",
+    title: "शावकों का मिशन",
+    lang: "hi",
+    asin: "B0H9L6NZQ4"
+},
+{
+    book: "book1",
+    title: "La misión de los cachorros",
+    lang: "es",
+    asin: "B0H9M99TMD"
+},
+{
+    book: "book1",
+    title: "La mission des tigreaux",
+    lang: "fr",
+    asin: "B0H9RXK27K"
+},
+{
+    book: "book1",
+    title: "A Missão dos Filhotes",
+    lang: "pt",
+    asin: "B0H9RZCF5V"
+},
+{
+    book: "book1",
+    title: "مهمة الأشبال",
+    lang: "ar",
+    asin: "B0H13SXQR3"
+},
+{
+    book: "book1",
+    title: "《小虎崽的使命》",
+    lang: "zh",
+    asin: "B0H5X6DT93"
+},
+{
+    book: "book1",
+    title: "Die Mission der Tigerjungen",
+    lang: "de",
+    asin: "B0H9VN8T66"
+},
+{
+    book: "book1",
+    title: "子トラたちの使命",
+    lang: "ja",
+    asin: "B0H9V71LW1"
+},
+{
+    book: "book1",
+    title: "La missione dei cuccioli",
+    lang: "it",
+    asin: "B0H9WDJXCC"
+},
+{
+    book: "book1",
+    title: "De missie van de welpen",
+    lang: "nl",
+    asin: "B0HBM3G9SY"
+},
+{
+    book: "book1",
+    title: "Die Welpies se Sending",
+    lang: "af",
+    asin: "B0H4WTZX8W"
+},
+
+/* =========================================================
+   BOOK 2
+   ========================================================= */
+
+{
+    book: "book2",
+    title: "Safety in the Herd",
+    lang: "en",
+    asin: "B0HC55MNYF"
+},
+{
+    book: "book2",
+    title: "Seguridad en la Manada",
+    lang: "es",
+    asin: "B0HCNJX3QS"
+},
+{
+    book: "book2",
+    title: "La sécurité au sein du troupeau",
+    lang: "fr",
+    asin: "B0HCTFHK98"
+},
+{
+    book: "book2",
+    title: "Segurança no Rebanho",
+    lang: "pt",
+    asin: "B0HCTVH729"
+},
+{
+    book: "book2",
+    title: "الأمان داخل القطيع",
+    lang: "ar",
+    asin: "B0HCY3LG2K"
+},
+{
+    book: "book2",
+    title: "झुंड में सुरक्षा",
+    lang: "hi",
+    asin: "B0HCXTL88C"
+},
+{
+    book: "book2",
+    title: "象群中的安全",
+    lang: "zh",
+    asin: "B0HCYFFWK3"
+},
+
+/* =========================================================
+   BOOK 3
+   ========================================================= */
+
+{
+    book: "book3",
+    title: "No Means No",
+    lang: "en",
+    asin: "B0HCLDR5WS"
+},
+
+/* =========================================================
+   BOOK 97
+   ========================================================= */
+
+{
+    book: "book97",
+    title: "Head, shoulders, knees and toes",
+    lang: "en",
+    asin: "B0F4P98VSB"
+},
+
+/* =========================================================
+   BOOK 98
+   ========================================================= */
+
+{
+    book: "book98",
+    title: "Please eat cookie Mummy",
+    lang: "en",
+    asin: "B0F4Q41SY4"
+},
+
+/* =========================================================
+   BOOK 99
+   ========================================================= */
+
+{
+    book: "book99",
+    title: "Please eat cookie Daddy",
+    lang: "en",
+    asin: "B0F4Q4CHGP"
+},
+
+/* =========================================================
+   BOOK 100
+   ========================================================= */
+
+{
+    book: "book100",
+    title: "Cuddles",
+    lang: "en",
+    asin: "B0F4M5L23S"
+}
+
+];
+
+
+
+/* =========================================================
+   BOOK LANGUAGE NAMES
+   The website is permanently displayed in English.
+   Two-letter language codes are never shown to the customer.
+   ========================================================= */
+
+const languageNames = {
+    en: "English",
+    hi: "Hindi",
+    es: "Spanish",
+    fr: "French",
+    pt: "Portuguese",
+    ar: "Arabic",
+    zh: "Traditional Chinese",
+    de: "German",
+    ja: "Japanese",
+    it: "Italian",
+    nl: "Dutch",
+    af: "Afrikaans"
+};
+
+/* =========================================================
+   AMAZON SITES
+   ========================================================= */
+
+const amazonSites = [
+    { code:"us", name:"US", domain:"amazon.com" },
+
+    { code:"uk", name:"UK", domain:"amazon.co.uk" },
+
+    { code:"de", name:"Germany", domain:"amazon.de" },
+
+    { code:"fr", name:"France", domain:"amazon.fr" },
+
+    { code:"es", name:"Spain", domain:"amazon.es" },
+
+    { code:"it", name:"Italy", domain:"amazon.it" },
+
+    { code:"nl", name:"Netherlands", domain:"amazon.nl" },
+
+    { code:"jp", name:"Japan", domain:"amazon.co.jp" },
+
+    { code:"br", name:"Brazil", domain:"amazon.com.br" },
+
+    { code:"ca", name:"Canada", domain:"amazon.ca" },
+
+    { code:"mx", name:"Mexico", domain:"amazon.com.mx" },
+
+    { code:"au", name:"Australia", domain:"amazon.com.au" },
+
+    { code:"in", name:"India", domain:"amazon.in" }
+];
+
+/* =========================================================
+   PAGE TEXT
+   ========================================================= */
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let selectedBook = null;
+let selectedBookLanguage = null;
+
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function getBookIds() {
+    return [...new Set(books.map(b => b.book))];
+}
+
+function getBookRecords(bookId) {
+    return books.filter(b => b.book === bookId);
+}
+
+function getBookDisplayTitle(bookId) {
+
+    const records = getBookRecords(bookId);
+
+    const english = records.find(
+        record => record.lang === "en"
+    );
+
+    if (english) {
+        return english.title;
     }
-  </script>
 
-  <!-- Bottom Social Icons -->
-  <div class="bottom-section">
-    <div class="social-logos">
-      <a>
-        <img src="book covers/Egg2.1.png" alt="Egg">
-      </a>
-      <a href="https://www.facebook.com/profile.php?id=61580287891618" target="_blank">
-        <img src="Facebook.png" alt="Facebook">
-      </a>
-      <a href="https://www.instagram.com/booksforyounow/" target="_blank">
-        <img src="Instagram.png" alt="Instagram">
-      </a>
-      <a href="https://www.tiktok.com/@hamishwritesbooks?is_from_webapp=1&sender_device=pc" target="_blank">
-        <img src="TikTok.png" alt="TikTok">
-      </a>
-      <a href="https://www.youtube.com/@HamishWordsworth" target="_blank">
-        <img src="YouTube.png" alt="YouTube">
-      </a>
-      <a href="https://nz.pinterest.com/vgxcnuf/" target="_blank">
-        <img src="Pinterest.png" alt="Pinterest">
-      </a>
-      </a>
-      <a href="https://www.goodreads.com/author/show/55688952.Hamish_Wordsworth" target="_blank">
-        <img src="goodreads.png" alt="goodreads">
-      </a>
-      <a>
-        <img src="book covers/Egg2.png" alt="Egg">
-      </a>
-    </div>
-  </div>
+    return records[0]
+        ? records[0].title
+        : bookId;
+}
 
-  <!-- Bottom Disclaimer 
-  <div class="bottom-disclaimer">
-    <span class="highlight">This page contains affiliate links. If you click the link, I earn a small commission—at no extra cost to you.</span>
-  </div> -->
+function getLanguageName(code) {
+    return languageNames[code] || code;
+}
 
+/* =========================================================
+   BOOK TITLES
+   ========================================================= */
+
+function renderBooks() {
+    const container = document.getElementById("bookList");
+    container.innerHTML = "";
+
+    getBookIds().forEach(bookId => {
+        const label = document.createElement("label");
+        label.className = "book-option";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "book";
+        radio.value = bookId;
+        radio.checked = selectedBook === bookId;
+
+        radio.addEventListener("change", () => {
+            if (!radio.checked) return;
+
+            selectedBook = bookId;
+            selectedBookLanguage = null;
+
+            renderBookLanguages();
+            hideSites();
+        });
+
+        label.appendChild(radio);
+        label.appendChild(
+            document.createTextNode(
+                getBookDisplayTitle(bookId)
+            )
+        );
+
+        container.appendChild(label);
+    });
+}
+
+/* =========================================================
+   BOOK LANGUAGES
+   ========================================================= */
+
+function renderBookLanguages() {
+    const column = document.getElementById("bookLanguageColumn");
+    const container = document.getElementById("bookLanguageList");
+
+    container.innerHTML = "";
+
+    if (!selectedBook) {
+        column.classList.add("hidden");
+        return;
+    }
+
+    const records = getBookRecords(selectedBook);
+
+    records.forEach(record => {
+        const label = document.createElement("label");
+        label.className = "language-option";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "bookLanguage";
+        radio.value = record.lang;
+        radio.checked = selectedBookLanguage === record.lang;
+
+        radio.addEventListener("change", () => {
+            if (!radio.checked) return;
+
+            selectedBookLanguage = record.lang;
+            renderSites();
+        });
+
+        label.appendChild(radio);
+        label.appendChild(
+            document.createTextNode(getLanguageName(record.lang))
+        );
+
+        container.appendChild(label);
+    });
+
+    column.classList.remove("hidden");
+}
+
+/* =========================================================
+   AMAZON SITES
+   ========================================================= */
+
+function renderSites() {
+    const column = document.getElementById("siteColumn");
+    const container = document.getElementById("siteList");
+
+    container.innerHTML = "";
+
+    if (!selectedBook || !selectedBookLanguage) {
+        column.classList.add("hidden");
+        return;
+    }
+
+    amazonSites.forEach(site => {
+        const label = document.createElement("label");
+        label.className = "site-option";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "amazonSite";
+        radio.value = site.code;
+
+        radio.addEventListener("change", () => {
+            if (!radio.checked) return;
+
+            const record = books.find(
+                b => b.book === selectedBook &&
+                     b.lang === selectedBookLanguage
+            );
+
+            if (!record) return;
+
+            /* FINAL AMAZON URL IS ASSEMBLED HERE */
+            const url =
+                "https://" +
+                site.domain +
+                "/dp/" +
+                record.asin;
+
+            window.location.href = url;
+        });
+
+        label.appendChild(radio);
+
+        const siteName =
+            site.name;
+
+        label.appendChild(document.createTextNode(siteName));
+        container.appendChild(label);
+    });
+
+    column.classList.remove("hidden");
+}
+
+function hideSites() {
+    const column = document.getElementById("siteColumn");
+    const container = document.getElementById("siteList");
+
+    container.innerHTML = "";
+    column.classList.add("hidden");
+}
+
+/* =========================================================
+   FIXED ENGLISH PAGE TEXT
+   ========================================================= */
+
+function renderText() {
+
+    document.getElementById("statement").textContent =
+        "I believe that every Parent and child-reader alike, should be given the pleasure to read in their own language.";
+
+    document.getElementById("specialThanks").textContent =
+        "Special Thanks — With special thanks to Hamish Wordsworth for allowing me to recycle this website. As a special thank-you, his children's books are also featured on this page.";
+}
+
+
+/* =========================================================
+   FULL RENDER
+   ========================================================= */
+
+function renderAll() {
+    renderText();
+    renderBooks();
+    renderBookLanguages();
+
+    if (selectedBook && selectedBookLanguage) {
+        renderSites();
+    } else {
+        hideSites();
+    }
+}
+
+/* =========================================================
+   RETURN FROM AMAZON
+   =========================================================
+   Keep page language.
+   Clear book/language/site selections.
+   ========================================================= */
+
+function resetBookSelection() {
+    selectedBook = null;
+    selectedBookLanguage = null;
+
+    renderBooks();
+    document.getElementById("bookLanguageColumn").classList.add("hidden");
+    document.getElementById("siteColumn").classList.add("hidden");
+}
+
+window.addEventListener("pageshow", function() {
+    selectedBook = null;
+    selectedBookLanguage = null;
+    renderAll();
+});
+
+/* =========================================================
+   START
+   ========================================================= */
+
+renderAll();
+
+</script>
 </body>
 </html>
