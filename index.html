@@ -147,6 +147,59 @@ input[type="radio"] {
     gap: 3px 14px;
 }
 
+
+/* =========================================================
+   WORLD ANIMAL TALES SERIES LANGUAGE MENU
+   ========================================================= */
+
+.series-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.series-logo-button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.series-logo-button:hover .logo {
+    transform: scale(1.03);
+}
+
+.series-language-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 190px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.18);
+    padding: 8px;
+    z-index: 1000;
+}
+
+.series-language-menu a {
+    display: block;
+    padding: 9px 12px;
+    color: #444;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.series-language-menu a:hover {
+    background: #f0f0f0;
+}
+
+.series-language-menu.show {
+    display: block;
+}
+
 .hidden {
     display: none !important;
 }
@@ -180,10 +233,61 @@ input[type="radio"] {
     <div class="statement" id="statement"></div>
 
   <div class="logo-side">
-    <img class="logo"
-         src="Series/World Animal Tales Logo.png"
-         alt="World Animal Tales">
-    <div class="logo-name">World Animal Tales</div>
+        <div class="series-menu">
+
+            <button
+                type="button"
+                class="series-logo-button"
+                onclick="toggleSeriesLanguages()"
+                aria-label="Choose World Animal Tales language"
+            >
+                <img class="logo"
+                     src="Series/World Animal Tales Logo.png"
+                     alt="World Animal Tales">
+            </button>
+
+            <div id="seriesLanguageMenu" class="series-language-menu">
+
+            <a href="https://www.amazon.com/dp/B0H9LPMC5R?binding=kindle_edition" target="_blank">
+                English
+            </a>
+            <a href="https://www.amazon.in/dp/B0HC4WB2SW?binding=kindle_edition" target="_blank">
+                हिन्दी
+            </a>
+            <a href="https://www.amazon.es/-/en/dp/B0HDG1DQHF?binding=kindle_edition" target="_blank">
+                Español
+            </a>
+            <a href="https://www.amazon.fr/-/en/dp/B0GX33GNCK?binding=kindle_edition" target="_blank">
+                Français
+            </a>
+            <a href="https://www.amazon.com.br/dp/B0HFD1MB8Y?binding=kindle_edition" target="_blank">
+                Português
+            </a>
+            <a href="https://www.amazon.com/dp/B0H2FKX6YP?binding=kindle_edition" target="_blank">
+                العربية
+            </a>
+            <a href="https://www.amazon.com/dp/B0H6G5TNP7?binding=kindle_edition" target="_blank">
+                繁體中文
+            </a>
+            <a href="https://www.amazon.de/-/en/dp/B0HFDHNT6S?binding=kindle_edition" target="_blank">
+                Deutsch
+            </a>
+            <a href="https://www.amazon.co.jp/-/en/dp/B0H2GK87CM?binding=kindle_edition" target="_blank">
+                日本語
+            </a>
+            <a href="https://www.amazon.it/-/en/dp/B0HCMF7M8D?binding=kindle_edition" target="_blank">
+                Italiano
+            </a>
+            <a href="https://www.amazon.nl/dp/B0HBM3G9SY" target="_blank">
+                Nederlands
+            </a>
+            <a href="https://www.amazon.com/dp/B0H67GSX67?binding=kindle_edition" target="_blank">
+                Afrikaans
+            </a>
+
+            </div>
+
+        </div>    <div class="logo-name">World Animal Tales</div>
   </div>
 </header>
 
@@ -739,6 +843,39 @@ window.addEventListener("pageshow", function() {
     renderAll();
 });
 
+/* =========================================================
+   WORLD ANIMAL TALES SERIES LANGUAGE MENU
+   ========================================================= */
+
+function toggleSeriesLanguages() {
+
+    const menu =
+        document.getElementById("seriesLanguageMenu");
+
+    menu.classList.toggle("show");
+}
+
+
+/* Close menu when clicking elsewhere */
+
+document.addEventListener("click", function(event) {
+
+    const menu =
+        document.getElementById("seriesLanguageMenu");
+
+    const button =
+        document.querySelector(".series-logo-button");
+
+    if (
+        menu &&
+        button &&
+        !menu.contains(event.target) &&
+        !button.contains(event.target)
+    ) {
+        menu.classList.remove("show");
+    }
+
+});
 /* =========================================================
    START
    ========================================================= */
