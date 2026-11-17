@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>World Animal Tales</title>
 
-    <!-- Cloudflare Web Analytics -->
-    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "43debb85834c428987d7a4f86db07461"}'></script>
-    <!-- End Cloudflare Web Analytics -->
-
 <style>
 * { box-sizing: border-box; }
 
@@ -144,11 +140,21 @@ input[type="radio"] {
     padding: 1px 0;
 }
 
-.language-list,
+.language-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 5px 18px;
+}
+
 .site-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(100px, 1fr));
     gap: 3px 14px;
+}
+
+#bookLanguageColumn {
+    min-width: 500px;
+    max-width: 760px;
 }
 
 
@@ -216,6 +222,147 @@ input[type="radio"] {
     font-size: 13px;
     line-height: 1.2;
 }
+
+/* NEW STORE AND CONTEXT-SENSITIVE NAVIGATION */
+#selectionArea {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 22px 28px;
+    margin-top: 42px;
+    overflow-y: auto;
+    padding: 0 12px 10px;
+}
+
+#selectionArea > .navigation-panel {
+    flex: 0 0 100%;
+    width: 100%;
+}
+
+#selectionArea > .selection-column {
+    flex: 0 0 auto;
+    align-self: flex-start;
+}
+
+#selectionArea > .book-column {
+    width: 300px;
+}
+
+#selectionArea > #bookLanguageColumn {
+    width: min(620px, 55vw);
+    min-width: 420px;
+    max-width: 760px;
+}
+
+#selectionArea > #siteColumn {
+    width: 300px;
+}
+
+.navigation-panel {
+    width: min(1100px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.navigation-status {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.available-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.available-row strong {
+    white-space: nowrap;
+}
+
+.store-choices,
+.navigation-choices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.store-choice,
+.navigation-choice {
+    border: 1px solid #777;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.92);
+    color: #222;
+    padding: 8px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.store-choice:hover,
+.navigation-choice:hover {
+    background: #eeeeee;
+}
+
+.navigation-status {
+    width: min(760px, 100%);
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 15px;
+}
+
+.status-line {
+    display: grid;
+    grid-template-columns: 165px 1fr;
+    gap: 12px;
+    align-items: baseline;
+}
+
+.status-line strong {
+    white-space: nowrap;
+}
+
+.navigation-choices {
+    justify-content: flex-start;
+    margin-left: 177px;
+    min-height: 0;
+}
+
+.data-pending {
+    font-size: 14px;
+    font-style: italic;
+    max-width: 420px;
+}
+
+@media (max-width: 700px) {
+    #selectionArea { margin-top: 20px; }
+    .status-line { grid-template-columns: 1fr; gap: 2px; }
+    .navigation-choices { margin-left: 0; }
+    #selectionArea { align-items: flex-start; }
+    .navigation-panel { align-items: stretch; }
+    #selectionArea > .book-column,
+    #selectionArea > #bookLanguageColumn,
+    #selectionArea > #siteColumn {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+    }
+}
+
+#availableOptionsLabel { white-space: nowrap; }
 </style>
 </head>
 
@@ -298,20 +445,40 @@ input[type="radio"] {
 
 <div id="selectionArea">
 
+    <div class="navigation-panel">
+        <div class="store-choices" aria-label="Choose a bookstore">
+            <button type="button" class="store-choice" onclick="chooseStore('Amazon')">Amazon</button>
+            <button type="button" class="store-choice" onclick="chooseStore('Kobo')">Kobo</button>
+        </div>
+
+        <div class="navigation-status">
+            <div class="status-line">
+                <strong id="selectedOptionsLabel" class="hidden">Options Selected</strong>
+                <span id="selectedOptions"></span>
+            </div>
+            <div class="available-row" id="availableRow">
+                <strong id="availableOptionsLabel" class="hidden">Available Options</strong>
+                <div id="navigationChoices" class="navigation-choices"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="selection-column book-column">
-	<h3>Book Titles</h3>
+        <h3 id="bookTitleHeading"></h3>
         <div id="bookList" class="column-list"></div>
     </div>
 
     <div id="bookLanguageColumn" class="selection-column hidden">
-	<h3>Book Languages</h3>
+        <h3>Book Languages</h3>
         <div id="bookLanguageList" class="language-list"></div>
     </div>
 
     <div id="siteColumn" class="selection-column hidden">
-	<h3>Amazon Stores</h3>
+        <h3>Amazon Stores</h3>
         <div id="siteList" class="site-list"></div>
     </div>
+
+    <p id="purchaseMessage" class="data-pending hidden"></p>
 
 </div>
 
@@ -729,6 +896,7 @@ const books = [
     lang: "af",
     asin: "B0HRR8659G"
 },
+
 /* =========================================================
    BOOK 97
    en hi es fr pt ar zh de ja it nl af
@@ -852,22 +1020,44 @@ const amazonSites = [
 ];
 
 /* =========================================================
-   PAGE TEXT
+   WEBSITE NAVIGATION AND DISPLAY
+   Existing Amazon book records above this section are retained.
    ========================================================= */
 
-
-/* =========================================================
-   STATE
-   ========================================================= */
-
+let selectedStore = null;
 let selectedBook = null;
 let selectedBookLanguage = null;
+let selectedVolume = null;
+let selectedFormat = null;
+let selectedKoboBook = null;
+let selectedKoboLanguage = null;
 
+/*
+  KOBO DATA
+  The Punjabi edition of The Cubs' Mission is known to be published.
+  Its exact Kobo URL was not present in the original website code,
+  so the URL is deliberately left blank rather than invented.
+  Add the verified purchase URL when available.
+*/
+const koboBooks = [
+    {
+        id: "book1",
+        title: "The Cubs' Mission",
+        languages: [
+            { code: "pa", name: "Punjabi", url: "" }
+        ]
+    }
+];
 
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
+/*
+  VOLUME DATA
+  These arrays are intentionally ready for the real publication records.
+  Add actual volume titles, language availability, ASINs and Kobo URLs
+  when those editions have been published. No purchase identifiers
+  have been guessed or fabricated.
+*/
+const amazonVolumes = [];
+const koboVolumes = [];
 
 function getBookIds() {
     return [...new Set(books.map(b => b.book))];
@@ -878,29 +1068,134 @@ function getBookRecords(bookId) {
 }
 
 function getBookDisplayTitle(bookId) {
-
     const records = getBookRecords(bookId);
-
-    const english = records.find(
-        record => record.lang === "en"
-    );
-
-    if (english) {
-        return english.title;
-    }
-
-    return records[0]
-        ? records[0].title
-        : bookId;
+    const english = records.find(record => record.lang === "en");
+    if (english) return english.title;
+    return records[0] ? records[0].title : bookId;
 }
 
 function getLanguageName(code) {
     return languageNames[code] || code;
 }
 
-/* =========================================================
-   BOOK TITLES
-   ========================================================= */
+function clearPurchaseColumns() {
+    document.getElementById("bookLanguageColumn").classList.add("hidden");
+    document.getElementById("siteColumn").classList.add("hidden");
+    document.getElementById("bookLanguageList").innerHTML = "";
+    document.getElementById("siteList").innerHTML = "";
+}
+
+function setColumnHeading(id, text) {
+    const container = document.getElementById(id);
+    const heading = container
+        ? container.closest(".selection-column").querySelector("h3")
+        : null;
+    if (heading) heading.textContent = text;
+}
+
+function renderNavigation() {
+    const selected = document.getElementById("selectedOptions");
+    const choices = document.getElementById("navigationChoices");
+    const label = document.getElementById("availableOptionsLabel");
+    const row = document.getElementById("availableRow");
+
+    choices.innerHTML = "";
+
+    const path = [];
+    if (selectedStore) path.push(selectedStore);
+
+    if (selectedStore === "Amazon") {
+        if (selectedVolume) path.push("Volumes");
+        if (selectedFormat) path.push(selectedFormat);
+    } else if (selectedStore === "Kobo") {
+        if (selectedVolume) path.push("Volumes");
+        if (selectedFormat) path.push(selectedFormat);
+    }
+
+    selected.textContent = path.join(", ");
+    document.getElementById("selectedOptionsLabel")
+        .classList.toggle("hidden", path.length === 0);
+
+    let nextOptions = [];
+    if (selectedStore === "Amazon" && !selectedVolume) {
+        nextOptions = ["Volumes"];
+    } else if (selectedStore === "Amazon" && selectedVolume && !selectedFormat) {
+        nextOptions = ["Paperback", "Hardcopy"];
+    } else if (selectedStore === "Amazon" && selectedFormat === "Paperback") {
+        nextOptions = ["E-books", "Colouring Book", "Hardcopy"];
+    } else if (selectedStore === "Amazon" && selectedFormat === "Hardcopy") {
+        nextOptions = ["E-books", "Paperback"];
+    } else if (selectedStore === "Amazon" && selectedFormat === "E-books") {
+        nextOptions = ["Paperback", "Hardcopy"];
+    } else if (selectedStore === "Kobo" && !selectedVolume) {
+        nextOptions = ["Volumes"];
+    }
+
+    nextOptions.forEach(option => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "navigation-choice";
+        button.textContent = option;
+        button.addEventListener("click", () => chooseNavigationOption(option));
+        choices.appendChild(button);
+    });
+
+    const hasOptions = nextOptions.length > 0;
+    label.classList.toggle("hidden", !hasOptions);
+    row.classList.toggle("hidden", !hasOptions);
+}
+
+function chooseStore(store) {
+    selectedStore = store;
+    selectedBook = null;
+    selectedBookLanguage = null;
+    selectedVolume = null;
+    // Both stores open in their default E-books view.
+    selectedFormat = "E-books";
+    selectedKoboBook = null;
+    selectedKoboLanguage = null;
+
+    clearPurchaseColumns();
+    document.getElementById("purchaseMessage").classList.add("hidden");
+
+    if (store === "Amazon") {
+        setColumnHeading("bookList", "Book Titles");
+        renderBooks();
+    } else if (store === "Kobo") {
+        setColumnHeading("bookList", "Book Titles");
+        renderKoboBooks();
+    }
+
+    renderNavigation();
+}
+
+function chooseNavigationOption(option) {
+    if (option === "Volumes") {
+        selectedVolume = true;
+        // Volumes also default to the E-books format.
+        selectedFormat = "E-books";
+        selectedBook = null;
+        selectedBookLanguage = null;
+        selectedKoboBook = null;
+        selectedKoboLanguage = null;
+        clearPurchaseColumns();
+        setColumnHeading("bookList", "Volumes");
+        renderVolumeChoices();
+    } else if (option === "Paperback" || option === "Hardcopy" || option === "E-books") {
+        selectedFormat = option;
+        selectedBook = null;
+        selectedBookLanguage = null;
+        clearPurchaseColumns();
+        setColumnHeading("bookList", "Volumes");
+        renderVolumeChoices();
+    } else if (option === "Colouring Book") {
+        selectedFormat = option;
+        clearPurchaseColumns();
+        setColumnHeading("bookList", "Colouring Books");
+        renderVolumeChoices();
+    }
+    renderNavigation();
+}
 
 function renderBooks() {
     const container = document.getElementById("bookList");
@@ -918,33 +1213,79 @@ function renderBooks() {
 
         radio.addEventListener("change", () => {
             if (!radio.checked) return;
-
             selectedBook = bookId;
             selectedBookLanguage = null;
-
             renderBookLanguages();
             hideSites();
         });
 
         label.appendChild(radio);
-        label.appendChild(
-            document.createTextNode(
-                getBookDisplayTitle(bookId)
-            )
-        );
-
+        label.appendChild(document.createTextNode(getBookDisplayTitle(bookId)));
         container.appendChild(label);
     });
 }
 
-/* =========================================================
-   BOOK LANGUAGES
-   ========================================================= */
+function renderKoboBooks() {
+    const container = document.getElementById("bookList");
+    container.innerHTML = "";
+
+    koboBooks.forEach(book => {
+        const label = document.createElement("label");
+        label.className = "book-option";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "koboBook";
+        radio.value = book.id;
+
+        radio.addEventListener("change", () => {
+            if (!radio.checked) return;
+            selectedKoboBook = book.id;
+            selectedKoboLanguage = null;
+            renderKoboLanguages();
+            hideSites();
+        });
+
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(book.title));
+        container.appendChild(label);
+    });
+}
+
+function renderVolumeChoices() {
+    const container = document.getElementById("bookList");
+    container.innerHTML = "";
+
+    const list = selectedStore === "Amazon" ? amazonVolumes : koboVolumes;
+
+    if (!list.length) {
+        const message = document.createElement("p");
+        message.className = "data-pending";
+        message.textContent = "Volume editions will appear here when their publication details are added.";
+        container.appendChild(message);
+        return;
+    }
+
+    list.forEach(volume => {
+        const label = document.createElement("label");
+        label.className = "book-option";
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "volume";
+        radio.value = volume.id;
+        radio.addEventListener("change", () => {
+            if (!radio.checked) return;
+            renderVolumeLanguages(volume);
+        });
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(volume.title));
+        container.appendChild(label);
+    });
+}
 
 function renderBookLanguages() {
     const column = document.getElementById("bookLanguageColumn");
     const container = document.getElementById("bookLanguageList");
-
     container.innerHTML = "";
 
     if (!selectedBook) {
@@ -953,7 +1294,6 @@ function renderBookLanguages() {
     }
 
     const records = getBookRecords(selectedBook);
-
     records.forEach(record => {
         const label = document.createElement("label");
         label.className = "language-option";
@@ -966,30 +1306,90 @@ function renderBookLanguages() {
 
         radio.addEventListener("change", () => {
             if (!radio.checked) return;
-
             selectedBookLanguage = record.lang;
             renderSites();
         });
 
         label.appendChild(radio);
-        label.appendChild(
-            document.createTextNode(getLanguageName(record.lang))
-        );
-
+        label.appendChild(document.createTextNode(getLanguageName(record.lang)));
         container.appendChild(label);
     });
 
     column.classList.remove("hidden");
 }
 
-/* =========================================================
-   AMAZON SITES
-   ========================================================= */
+function renderKoboLanguages() {
+    const column = document.getElementById("bookLanguageColumn");
+    const container = document.getElementById("bookLanguageList");
+    container.innerHTML = "";
+
+    const book = koboBooks.find(item => item.id === selectedKoboBook);
+    if (!book) {
+        column.classList.add("hidden");
+        return;
+    }
+
+    book.languages.forEach(language => {
+        const label = document.createElement("label");
+        label.className = "language-option";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "koboLanguage";
+        radio.value = language.code;
+
+        radio.addEventListener("change", () => {
+            if (!radio.checked) return;
+            selectedKoboLanguage = language.code;
+            const message = document.getElementById("purchaseMessage");
+            if (language.url) {
+                window.location.href = language.url;
+            } else {
+                message.textContent = "The Kobo purchase URL for this edition still needs to be entered in the koboBooks data above.";
+                message.classList.remove("hidden");
+            }
+        });
+
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(language.name));
+        container.appendChild(label);
+    });
+
+    column.classList.remove("hidden");
+}
+
+function renderVolumeLanguages(volume) {
+    const column = document.getElementById("bookLanguageColumn");
+    const container = document.getElementById("bookLanguageList");
+    container.innerHTML = "";
+
+    (volume.languages || []).forEach(language => {
+        const label = document.createElement("label");
+        label.className = "language-option";
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "volumeLanguage";
+        radio.value = language.code;
+        radio.addEventListener("change", () => {
+            if (!radio.checked) return;
+            if (selectedStore === "Kobo") {
+                if (language.url) window.location.href = language.url;
+            } else {
+                const sites = language.sites || [];
+                renderVolumeSites(sites);
+            }
+        });
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(language.name || getLanguageName(language.code)));
+        container.appendChild(label);
+    });
+
+    column.classList.remove("hidden");
+}
 
 function renderSites() {
     const column = document.getElementById("siteColumn");
     const container = document.getElementById("siteList");
-
     container.innerHTML = "";
 
     if (!selectedBook || !selectedBookLanguage) {
@@ -1008,50 +1408,52 @@ function renderSites() {
 
         radio.addEventListener("change", () => {
             if (!radio.checked) return;
-
             const record = books.find(
-                b => b.book === selectedBook &&
-                     b.lang === selectedBookLanguage
+                b => b.book === selectedBook && b.lang === selectedBookLanguage
             );
-
             if (!record) return;
 
-            /* FINAL AMAZON URL IS ASSEMBLED HERE */
-            const url =
-                "https://" +
-                site.domain +
-                "/dp/" +
-                record.asin;
-
+            const url = "https://" + site.domain + "/dp/" + record.asin;
             window.location.href = url;
         });
 
         label.appendChild(radio);
-
-        const siteName =
-            site.name;
-
-        label.appendChild(document.createTextNode(siteName));
+        label.appendChild(document.createTextNode(site.name));
         container.appendChild(label);
     });
 
     column.classList.remove("hidden");
 }
 
-function hideSites() {
+function renderVolumeSites(sites) {
     const column = document.getElementById("siteColumn");
     const container = document.getElementById("siteList");
-
     container.innerHTML = "";
-    column.classList.add("hidden");
+
+    sites.forEach(site => {
+        const label = document.createElement("label");
+        label.className = "site-option";
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "volumeSite";
+        radio.value = site.code;
+        radio.addEventListener("change", () => {
+            if (radio.checked && site.url) window.location.href = site.url;
+        });
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(site.name));
+        container.appendChild(label);
+    });
+
+    column.classList.toggle("hidden", !sites.length);
 }
 
-/* =========================================================
-   FIXED ENGLISH PAGE TEXT
-   ========================================================= */
+function hideSites() {
+    document.getElementById("siteList").innerHTML = "";
+    document.getElementById("siteColumn").classList.add("hidden");
+}
 
 function renderText() {
-
     document.getElementById("statement").textContent =
         "I believe that every Parent and child-reader alike, should be given the pleasure to read in their own language.";
 
@@ -1059,84 +1461,52 @@ function renderText() {
         "Special Thanks — With special thanks to Hamish Wordsworth for allowing me to recycle this website. As a special thank-you, his children's books are also featured on this page.";
 }
 
-
-/* =========================================================
-   FULL RENDER
-   ========================================================= */
-
 function renderAll() {
     renderText();
-    renderBooks();
-    renderBookLanguages();
-
-    if (selectedBook && selectedBookLanguage) {
-        renderSites();
-    } else {
-        hideSites();
-    }
+    renderNavigation();
+    clearPurchaseColumns();
+    document.getElementById("bookList").innerHTML = "";
+    setColumnHeading("bookList", "");
+    document.getElementById("purchaseMessage").classList.add("hidden");
 }
-
-/* =========================================================
-   RETURN FROM AMAZON
-   =========================================================
-   Keep page language.
-   Clear book/language/site selections.
-   ========================================================= */
 
 function resetBookSelection() {
     selectedBook = null;
     selectedBookLanguage = null;
-
-    renderBooks();
-    document.getElementById("bookLanguageColumn").classList.add("hidden");
-    document.getElementById("siteColumn").classList.add("hidden");
+    selectedKoboBook = null;
+    selectedKoboLanguage = null;
+    clearPurchaseColumns();
+    renderNavigation();
 }
 
 window.addEventListener("pageshow", function() {
+    selectedStore = null;
     selectedBook = null;
     selectedBookLanguage = null;
+    selectedVolume = null;
+    selectedFormat = null;
+    selectedKoboBook = null;
+    selectedKoboLanguage = null;
     renderAll();
 });
 
-/* =========================================================
-   WORLD ANIMAL TALES SERIES LANGUAGE MENU
-   ========================================================= */
-
 function toggleSeriesLanguages() {
-
-    const menu =
-        document.getElementById("seriesLanguageMenu");
-
-    menu.classList.toggle("show");
+    document.getElementById("seriesLanguageMenu").classList.toggle("show");
 }
 
-
-/* Close menu when clicking elsewhere */
-
 document.addEventListener("click", function(event) {
-
-    const menu =
-        document.getElementById("seriesLanguageMenu");
-
-    const button =
-        document.querySelector(".series-logo-button");
-
-    if (
-        menu &&
-        button &&
-        !menu.contains(event.target) &&
-        !button.contains(event.target)
-    ) {
+    const menu = document.getElementById("seriesLanguageMenu");
+    const button = document.querySelector(".series-logo-button");
+    if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
         menu.classList.remove("show");
     }
-
 });
-/* =========================================================
-   START
-   ========================================================= */
 
 renderAll();
 
 </script>
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "43debb85834c428987d7a4f86db07461"}'></script>
+<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
