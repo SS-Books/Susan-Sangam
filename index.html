@@ -489,489 +489,541 @@ input[type="radio"] {
 
 <script>
 /* =========================================================
-   BOOK DATABASE
-   Only the published title, language code and ASIN are stored.
+   UNIFIED PUBLICATION CATALOGUE — VERSION 11
+
+   One master record per publication. Each available format has language
+   editions; each language edition can hold its own Amazon ASIN
+   and/or Kobo identifier. Individual titles are e-books only; the
+   additional formats are reserved for volumes. Empty identifiers mean not published
+   on that platform yet. Existing identifiers are preserved.
+
+   Individual publications: ebooks only.
+   Volume publications: ebooks, paperbacks, hardcopies, colouringBooks.
+   Publication types: individual, volume.
    ========================================================= */
 
-const books = [
-
-/* =========================================================
-   BOOK 1
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book1",
-    title: "The Cubs' Mission",
-    lang: "en",
-    asin: "B0H9LH54M3"
-},
-{
-    book: "book1",
-    lang: "hi",
-    asin: "B0H9L6NZQ4"
-},
-{
-    book: "book1",
-    lang: "es",
-    asin: "B0H9M99TMD"
-},
-{
-    book: "book1",
-    lang: "fr",
-    asin: "B0H9RXK27K"
-},
-{
-    book: "book1",
-    lang: "pt",
-    asin: "B0H9RZCF5V"
-},
-{
-    book: "book1",
-        lang: "ar",
-    asin: "B0H13SXQR3"
-},
-{
-    book: "book1",
-    lang: "zh",
-    asin: "B0H5X6DT93"
-},
-{
-    book: "book1",
-    lang: "de",
-    asin: "B0H9VN8T66"
-},
-{
-    book: "book1",
-    lang: "ja",
-    asin: "B0H9V71LW1"
-},
-{
-    book: "book1",
-    lang: "it",
-    asin: "B0H9WDJXCC"
-},
-{
-    book: "book1",
-    lang: "nl",
-    asin: "B0HBM3G9SY"
-},
-{
-    book: "book1",
-    lang: "af",
-    asin: "B0H4WTZX8W"
-},
-
-/* =========================================================
-   BOOK 2
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book2",
-    title: "Safety in the Herd",
-    lang: "en",
-    asin: "B0HC55MNYF"
-},
-{
-    book: "book2",
-    lang: "hi",
-    asin: "B0HCXTL88C"
-},
-{
-    book: "book2",
-    lang: "es",
-    asin: "B0HCNJX3QS"
-},
-{
-    book: "book2",
-    lang: "fr",
-    asin: "B0HCTFHK98"
-},
-{
-    book: "book2",
-    lang: "pt",
-    asin: "B0HCTVH729"
-},
-{
-    book: "book2",
-        lang: "ar",
-    asin: "B0HCY3LG2K"
-},
-{
-    book: "book2",
-    lang: "zh",
-    asin: "B0HCYFFWK3"
-},
-{
-    book: "book2",
-    lang: "de",
-    asin: "B0HG4F8TWM"
-},
-{
-    book: "book2",
-    lang: "ja",
-    asin: "B0HGP9GWT5"
-},
-{
-    book: "book2",
-    lang: "it",
-    asin: "B0HGPF74LM"
-},
-{
-    book: "book2",
-    lang: "nl",
-    asin: "B0HGQH4JS7"
-},
-{
-    book: "book2",
-    lang: "af",
-    asin: "B0HGQM3GT3"
-},
-
-/* =========================================================
-   BOOK 3
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book3",
-    title: "No Means No",
-    lang: "en",
-    asin: "B0HCLDR5WS"
-},
-{
-    book: "book3",
-    lang: "hi",
-    asin: "B0HHGBRJNZ"
-},
-{
-    book: "book3",
-    lang: "es",
-    asin: "B0HHJ2YVXZ"
-},
-{
-    book: "book3",
-    lang: "fr",
-    asin: "B0HHKW1J8C"
-},
-{
-    book: "book3",
-    lang: "pt",
-    asin: "B0HHKSR796"
-},
-{
-    book: "book3",
-    lang: "ar",
-    asin: "B0HHN115MX"
-},
-{
-    book: "book3",
-    lang: "zh",
-    asin: "B0HHQQLL5L"
-},
-{
-    book: "book3",
-    lang: "de",
-    asin: "B0HHQ97FQ4"
-},
-{
-    book: "book3",
-    lang: "ja",
-    asin: "B0HHTQ7ZNW"
-},
-{
-    book: "book3",
-    lang: "it",
-    asin: "B0HHTSVMYD"
-},
-{
-    book: "book3",
-    lang: "nl",
-    asin: "B0HHYB2F6M"
-},
-{
-    book: "book3",
-    lang: "af",
-    asin: "B0HHYC3BPP"
-},
-
-/* =========================================================
-   BOOK 4
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book4",
-    title: "Care and Harmony",
-    lang: "en",
-    asin: "B0HFC7D2B3"
-},
-{
-    book: "book4",
-    lang: "hi",
-    asin: "B0HJBDQLLF"
-},
-{
-    book: "book4",
-    lang: "es",
-    asin: "B0HJBJQSRG"
-},
-{
-    book: "book4",
-    lang: "fr",
-    asin: "B0HJCYDTGB"
-},
-{
-    book: "book4",
-    lang: "pt",
-    asin: "B0HJD3M51M"
-},
-{
-    book: "book4",
-    lang: "ar",
-    asin: "B0HJD8RGNH"
-},
-{
-    book: "book4",
-    lang: "zh",
-    asin: "B0HJFHF5L1"
-},
-{
-    book: "book4",
-    lang: "de",
-    asin: "B0HJNMGK27"
-},
-{
-    book: "book4",
-    lang: "ja",
-    asin: "B0HJNLJZ8K"
-},
-{
-    book: "book4",
-    lang: "it",
-    asin: "B0HJNMTRJP"
-},
-{
-    book: "book4",
-    lang: "nl",
-    asin: "B0HCTS2D21"
-},
-{
-    book: "book4",
-    lang: "af",
-    asin: "B0HJNJG91P"
-},
-
-/* =========================================================
-   BOOK 5
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book5",
-    title: "Better Wise Than Swift",
-    lang: "en",
-    asin: "B0HFZDDQZF"
-},
-{
-    book: "book5",
-    lang: "hi",
-    asin: "B0HJPMPZNR"
-},
-{
-    book: "book5",
-    lang: "es",
-    asin: "B0HJPH4DC4"
-},
-{
-    book: "book5",
-    lang: "fr",
-    asin: "B0HJP8SG7H"
-},
-{
-    book: "book5",
-    lang: "pt",
-    asin: "B0HB564T8V"
-},
-{
-    book: "book5",
-    lang: "ar",
-    asin: "B0HJQ7N2CG"
-},
-{
-    book: "book5",
-    lang: "zh",
-    asin: "B0HKDZWWXT"
-},
-{
-    book: "book5",
-    lang: "de",
-    asin: "B0HKF5CQFZ"
-},
-{
-    book: "book5",
-    lang: "ja",
-    asin: "B0HKFFXCRG"
-},
-{
-    book: "book5",
-    lang: "it",
-    asin: "B0HKFJ4ZZY"
-},
-{
-    book: "book5",
-    lang: "nl",
-    asin: "B0HKFBK3PF"
-},
-{
-    book: "book5",
-    lang: "af",
-    asin: "B0HKFDQGG3"
-},
-
-/* =========================================================
-   BOOK 6
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book6",
-    title: "Leopard! Leopard!",
-    lang: "en",
-    asin: "B0HHYR1RNL"
-},
-{
-    book: "book6",
-    lang: "hi",
-    asin: "B0HKFCMVQL"
-},
-{
-    book: "book6",
-    lang: "es",
-    asin: "B0HKFQHVZL"
-},
-{
-    book: "book6",
-    lang: "fr",
-    asin: "B0HKFCC537"
-},
-{
-    book: "book6",
-    lang: "pt",
-    asin: "B0HKFG9JVS"
-},
-{
-    book: "book6",
-    lang: "ar",
-    asin: "B0HL61K2VL"
-},
-{
-    book: "book6",
-    lang: "zh",
-    asin: "B0HL5MNRLK"
-},
-{
-    book: "book6",
-    lang: "de",
-    asin: "B0HQ3B6TW3"
-},
-{
-    book: "book6",
-    lang: "ja",
-    asin: "B0HQZ5MLLL"
-},
-{
-    book: "book6",
-    lang: "it",
-    asin: "B0HQYZKBJT"
-},
-{
-    book: "book6",
-    lang: "nl",
-    asin: "B0HRRXX55V"
-},
-{
-    book: "book6",
-    lang: "af",
-    asin: "B0HRR8659G"
-},
-
-/* =========================================================
-   BOOK 97
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book97",
-    title: "Head, shoulders, knees and toes",
-    lang: "en",
-    asin: "B0F4P98VSB"
-},
-{
-    book: "book97",
-    lang: "hi",
-    asin: "B0HDRPCBCB"
-},
-{
-    book: "book97",
-    lang: "es",
-    asin: "B0HDRSGXD6"
-},
-{
-    book: "book97",
-    lang: "fr",
-    asin: "B0HDRX5PC3"
-},
-
-
-
-/* =========================================================
-   BOOK 98
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book98",
-    title: "Please eat cookie Mummy",
-    lang: "en",
-    asin: "B0F4Q41SY4"
-},
-
-/* =========================================================
-   BOOK 99
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book99",
-    title: "Please eat cookie Daddy",
-    lang: "en",
-    asin: "B0F4Q4CHGP"
-},
-
-/* =========================================================
-   BOOK 100
-   en hi es fr pt ar zh de ja it nl af
-   ========================================================= */
-
-{
-    book: "book100",
-    title: "Cuddles",
-    lang: "en",
-    asin: "B0F4M5L23S"
-}
-
+const publications = [
+    {
+        "id": "book1",
+        "title": "The Cubs' Mission",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0H9LH54M3",
+                    "koboCode": ""
+                },
+                {
+                    "language": "hi",
+                    "amazonASIN": "B0H9L6NZQ4",
+                    "koboCode": ""
+                },
+                {
+                    "language": "es",
+                    "amazonASIN": "B0H9M99TMD",
+                    "koboCode": ""
+                },
+                {
+                    "language": "fr",
+                    "amazonASIN": "B0H9RXK27K",
+                    "koboCode": ""
+                },
+                {
+                    "language": "pt",
+                    "amazonASIN": "B0H9RZCF5V",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ar",
+                    "amazonASIN": "B0H13SXQR3",
+                    "koboCode": ""
+                },
+                {
+                    "language": "zh",
+                    "amazonASIN": "B0H5X6DT93",
+                    "koboCode": ""
+                },
+                {
+                    "language": "de",
+                    "amazonASIN": "B0H9VN8T66",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ja",
+                    "amazonASIN": "B0H9V71LW1",
+                    "koboCode": ""
+                },
+                {
+                    "language": "it",
+                    "amazonASIN": "B0H9WDJXCC",
+                    "koboCode": ""
+                },
+                {
+                    "language": "nl",
+                    "amazonASIN": "B0HBM3G9SY",
+                    "koboCode": ""
+                },
+                {
+                    "language": "af",
+                    "amazonASIN": "B0H4WTZX8W",
+                    "koboCode": ""
+                },
+                {
+                    "language": "pa",
+                    "amazonASIN": "",
+                    "koboCode": "G31v-6dj6TKsQHHm5mZ8Pw"
+                }
+            ]
+        }
+    },
+    {
+        "id": "book2",
+        "title": "Safety in the Herd",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0HC55MNYF",
+                    "koboCode": ""
+                },
+                {
+                    "language": "hi",
+                    "amazonASIN": "B0HCXTL88C",
+                    "koboCode": ""
+                },
+                {
+                    "language": "es",
+                    "amazonASIN": "B0HCNJX3QS",
+                    "koboCode": ""
+                },
+                {
+                    "language": "fr",
+                    "amazonASIN": "B0HCTFHK98",
+                    "koboCode": ""
+                },
+                {
+                    "language": "pt",
+                    "amazonASIN": "B0HCTVH729",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ar",
+                    "amazonASIN": "B0HCY3LG2K",
+                    "koboCode": ""
+                },
+                {
+                    "language": "zh",
+                    "amazonASIN": "B0HCYFFWK3",
+                    "koboCode": ""
+                },
+                {
+                    "language": "de",
+                    "amazonASIN": "B0HG4F8TWM",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ja",
+                    "amazonASIN": "B0HGP9GWT5",
+                    "koboCode": ""
+                },
+                {
+                    "language": "it",
+                    "amazonASIN": "B0HGPF74LM",
+                    "koboCode": ""
+                },
+                {
+                    "language": "nl",
+                    "amazonASIN": "B0HGQH4JS7",
+                    "koboCode": ""
+                },
+                {
+                    "language": "af",
+                    "amazonASIN": "B0HGQM3GT3",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "book3",
+        "title": "No Means No",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0HCLDR5WS",
+                    "koboCode": ""
+                },
+                {
+                    "language": "hi",
+                    "amazonASIN": "B0HHGBRJNZ",
+                    "koboCode": ""
+                },
+                {
+                    "language": "es",
+                    "amazonASIN": "B0HHJ2YVXZ",
+                    "koboCode": ""
+                },
+                {
+                    "language": "fr",
+                    "amazonASIN": "B0HHKW1J8C",
+                    "koboCode": ""
+                },
+                {
+                    "language": "pt",
+                    "amazonASIN": "B0HHKSR796",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ar",
+                    "amazonASIN": "B0HHN115MX",
+                    "koboCode": ""
+                },
+                {
+                    "language": "zh",
+                    "amazonASIN": "B0HHQQLL5L",
+                    "koboCode": ""
+                },
+                {
+                    "language": "de",
+                    "amazonASIN": "B0HHQ97FQ4",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ja",
+                    "amazonASIN": "B0HHTQ7ZNW",
+                    "koboCode": ""
+                },
+                {
+                    "language": "it",
+                    "amazonASIN": "B0HHTSVMYD",
+                    "koboCode": ""
+                },
+                {
+                    "language": "nl",
+                    "amazonASIN": "B0HHYB2F6M",
+                    "koboCode": ""
+                },
+                {
+                    "language": "af",
+                    "amazonASIN": "B0HHYC3BPP",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "book4",
+        "title": "Care and Harmony",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0HFC7D2B3",
+                    "koboCode": ""
+                },
+                {
+                    "language": "hi",
+                    "amazonASIN": "B0HJBDQLLF",
+                    "koboCode": ""
+                },
+                {
+                    "language": "es",
+                    "amazonASIN": "B0HJBJQSRG",
+                    "koboCode": ""
+                },
+                {
+                    "language": "fr",
+                    "amazonASIN": "B0HJCYDTGB",
+                    "koboCode": ""
+                },
+                {
+                    "language": "pt",
+                    "amazonASIN": "B0HJD3M51M",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ar",
+                    "amazonASIN": "B0HJD8RGNH",
+                    "koboCode": ""
+                },
+                {
+                    "language": "zh",
+                    "amazonASIN": "B0HJFHF5L1",
+                    "koboCode": ""
+                },
+                {
+                    "language": "de",
+                    "amazonASIN": "B0HJNMGK27",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ja",
+                    "amazonASIN": "B0HJNLJZ8K",
+                    "koboCode": ""
+                },
+                {
+                    "language": "it",
+                    "amazonASIN": "B0HJNMTRJP",
+                    "koboCode": ""
+                },
+                {
+                    "language": "nl",
+                    "amazonASIN": "B0HCTS2D21",
+                    "koboCode": ""
+                },
+                {
+                    "language": "af",
+                    "amazonASIN": "B0HJNJG91P",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "book5",
+        "title": "Better Wise Than Swift",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0HFZDDQZF",
+                    "koboCode": ""
+                },
+                {
+                    "language": "hi",
+                    "amazonASIN": "B0HJPMPZNR",
+                    "koboCode": ""
+                },
+                {
+                    "language": "es",
+                    "amazonASIN": "B0HJPH4DC4",
+                    "koboCode": ""
+                },
+                {
+                    "language": "fr",
+                    "amazonASIN": "B0HJP8SG7H",
+                    "koboCode": ""
+                },
+                {
+                    "language": "pt",
+                    "amazonASIN": "B0HB564T8V",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ar",
+                    "amazonASIN": "B0HJQ7N2CG",
+                    "koboCode": ""
+                },
+                {
+                    "language": "zh",
+                    "amazonASIN": "B0HKDZWWXT",
+                    "koboCode": ""
+                },
+                {
+                    "language": "de",
+                    "amazonASIN": "B0HKF5CQFZ",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ja",
+                    "amazonASIN": "B0HKFFXCRG",
+                    "koboCode": ""
+                },
+                {
+                    "language": "it",
+                    "amazonASIN": "B0HKFJ4ZZY",
+                    "koboCode": ""
+                },
+                {
+                    "language": "nl",
+                    "amazonASIN": "B0HKFBK3PF",
+                    "koboCode": ""
+                },
+                {
+                    "language": "af",
+                    "amazonASIN": "B0HKFDQGG3",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "book6",
+        "title": "Leopard! Leopard!",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0HHYR1RNL",
+                    "koboCode": ""
+                },
+                {
+                    "language": "hi",
+                    "amazonASIN": "B0HKFCMVQL",
+                    "koboCode": ""
+                },
+                {
+                    "language": "es",
+                    "amazonASIN": "B0HKFQHVZL",
+                    "koboCode": ""
+                },
+                {
+                    "language": "fr",
+                    "amazonASIN": "B0HKFCC537",
+                    "koboCode": ""
+                },
+                {
+                    "language": "pt",
+                    "amazonASIN": "B0HKFG9JVS",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ar",
+                    "amazonASIN": "B0HL61K2VL",
+                    "koboCode": ""
+                },
+                {
+                    "language": "zh",
+                    "amazonASIN": "B0HL5MNRLK",
+                    "koboCode": ""
+                },
+                {
+                    "language": "de",
+                    "amazonASIN": "B0HQ3B6TW3",
+                    "koboCode": ""
+                },
+                {
+                    "language": "ja",
+                    "amazonASIN": "B0HQZ5MLLL",
+                    "koboCode": ""
+                },
+                {
+                    "language": "it",
+                    "amazonASIN": "B0HQYZKBJT",
+                    "koboCode": ""
+                },
+                {
+                    "language": "nl",
+                    "amazonASIN": "B0HRRXX55V",
+                    "koboCode": ""
+                },
+                {
+                    "language": "af",
+                    "amazonASIN": "B0HRR8659G",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "book97",
+        "title": "Head, shoulders, knees and toes",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0F4P98VSB",
+                    "koboCode": ""
+                },
+                {
+                    "language": "hi",
+                    "amazonASIN": "B0HDRPCBCB",
+                    "koboCode": ""
+                },
+                {
+                    "language": "es",
+                    "amazonASIN": "B0HDRSGXD6",
+                    "koboCode": ""
+                },
+                {
+                    "language": "fr",
+                    "amazonASIN": "B0HDRX5PC3",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "book98",
+        "title": "Please eat cookie Mummy",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0F4Q41SY4",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "book99",
+        "title": "Please eat cookie Daddy",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0F4Q4CHGP",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "book100",
+        "title": "Cuddles",
+        "type": "individual",
+        "formats": {
+            "ebooks": [
+                {
+                    "language": "en",
+                    "amazonASIN": "B0F4M5L23S",
+                    "koboCode": ""
+                }
+            ]
+        }
+    },
+    {
+        "id": "volume1",
+        "title": "World Animal Tales - Volume 1",
+        "type": "volume",
+        "formats": {
+            "ebooks": [
+    		{
+	        "language": "en",
+	        "amazonASIN": "B0HJ3ZM5L7",
+        	"koboCode": ""
+    }
+],
+            "paperbacks": [],
+            "hardcopies": [],
+            "colouringBooks": []
+        }
+    },
+    {
+        "id": "volume2",
+        "title": "World Animal Tales - Volume 2",
+        "type": "volume",
+        "formats": {
+            "ebooks": [],
+            "paperbacks": [],
+            "hardcopies": [],
+            "colouringBooks": []
+        }
+    }
 ];
 
-
-
-/* =========================================================
-   BOOK LANGUAGE NAMES
-   The website is permanently displayed in English.
-   Two-letter language codes are never shown to the customer.
-   ========================================================= */
-
+/* Website language labels (the website itself remains English). */
 const languageNames = {
     en: "English",
     hi: "Hindi",
@@ -984,13 +1036,11 @@ const languageNames = {
     ja: "Japanese",
     it: "Italian",
     nl: "Dutch",
-    af: "Afrikaans"
+    af: "Afrikaans",
+    pa: "Punjabi"
 };
 
-/* =========================================================
-   AMAZON SITES
-   ========================================================= */
-
+/* Amazon regional stores — original V10 list retained verbatim. */
 const amazonSites = [
     { code:"us", name:"US", domain:"amazon.com" },
 
@@ -1019,119 +1069,92 @@ const amazonSites = [
     { code:"in", name:"India", domain:"amazon.in" }
 ];
 
-/* =========================================================
-   WEBSITE NAVIGATION AND DISPLAY
-   Existing Amazon book records above this section are retained.
-   ========================================================= */
+const koboBaseURL = "https://www.kobo.com/ebook/";
+function getKoboURL(edition) {
+    if (edition.koboCode) return koboBaseURL + edition.koboCode;
+    return edition.koboURL || "";
+}
+
+const formatLabels = {
+    ebooks: "E-books",
+    paperbacks: "Paperback",
+    hardcopies: "Hardcopy",
+    colouringBooks: "Colouring Book"
+};
+const formatOrder = ["ebooks", "paperbacks", "hardcopies", "colouringBooks"];
 
 let selectedStore = null;
-let selectedBook = null;
-let selectedBookLanguage = null;
-let selectedVolume = null;
-let selectedFormat = null;
-let selectedKoboBook = null;
-let selectedKoboLanguage = null;
-
-/*
-  KOBO DATA
-  The Punjabi edition of The Cubs' Mission is known to be published.
-  Its exact Kobo URL was not present in the original website code,
-  so the URL is deliberately left blank rather than invented.
-  Add the verified purchase URL when available.
-*/
-const koboBooks = [
-    {
-        id: "book1",
-        title: "The Cubs' Mission",
-        languages: [
-            { code: "pa", name: "Punjabi", url: "" }
-        ]
-    }
-];
-
-/*
-  VOLUME DATA
-  These arrays are intentionally ready for the real publication records.
-  Add actual volume titles, language availability, ASINs and Kobo URLs
-  when those editions have been published. No purchase identifiers
-  have been guessed or fabricated.
-*/
-const amazonVolumes = [];
-const koboVolumes = [];
-
-function getBookIds() {
-    return [...new Set(books.map(b => b.book))];
-}
-
-function getBookRecords(bookId) {
-    return books.filter(b => b.book === bookId);
-}
-
-function getBookDisplayTitle(bookId) {
-    const records = getBookRecords(bookId);
-    const english = records.find(record => record.lang === "en");
-    if (english) return english.title;
-    return records[0] ? records[0].title : bookId;
-}
+let selectedType = "individual";
+let selectedFormat = "ebooks";
+let selectedPublication = null;
+let selectedLanguage = null;
 
 function getLanguageName(code) {
     return languageNames[code] || code;
 }
-
+function getEditions(publication, format=selectedFormat) {
+    return (publication.formats && publication.formats[format]) || [];
+}
+function editionsForStore(publication, format=selectedFormat) {
+    const editions = getEditions(publication, format);
+    if (selectedStore === "Amazon") return editions.filter(e => !!e.amazonASIN);
+    if (selectedStore === "Kobo") return editions.filter(e => !!e.koboCode || !!e.koboURL);
+    return [];
+}
+function availableFormats(type) {
+    return formatOrder.filter(format => publications.some(p =>
+        p.type === type && editionsForStore(p, format).length > 0
+    ));
+}
 function clearPurchaseColumns() {
     document.getElementById("bookLanguageColumn").classList.add("hidden");
     document.getElementById("siteColumn").classList.add("hidden");
     document.getElementById("bookLanguageList").innerHTML = "";
     document.getElementById("siteList").innerHTML = "";
 }
-
-function setColumnHeading(id, text) {
-    const container = document.getElementById(id);
-    const heading = container
-        ? container.closest(".selection-column").querySelector("h3")
-        : null;
-    if (heading) heading.textContent = text;
+function clearSelection() {
+    selectedPublication = null;
+    selectedLanguage = null;
+    clearPurchaseColumns();
 }
-
+function setColumnHeading(id, value) {
+    const el = document.getElementById(id);
+    const heading = el ? el.closest(".selection-column").querySelector("h3") : null;
+    if (heading) heading.textContent = value;
+}
+function showMessage(message) {
+    const el = document.getElementById("purchaseMessage");
+    el.textContent = message;
+    el.classList.remove("hidden");
+}
+function hideMessage() {
+    document.getElementById("purchaseMessage").classList.add("hidden");
+}
 function renderNavigation() {
     const selected = document.getElementById("selectedOptions");
     const choices = document.getElementById("navigationChoices");
     const label = document.getElementById("availableOptionsLabel");
     const row = document.getElementById("availableRow");
-
     choices.innerHTML = "";
 
     const path = [];
     if (selectedStore) path.push(selectedStore);
-
-    if (selectedStore === "Amazon") {
-        if (selectedVolume) path.push("Volumes");
-        if (selectedFormat) path.push(selectedFormat);
-    } else if (selectedStore === "Kobo") {
-        if (selectedVolume) path.push("Volumes");
-        if (selectedFormat) path.push(selectedFormat);
-    }
-
+    if (selectedType === "volume") path.push("Volumes");
+    if (selectedStore) path.push(formatLabels[selectedFormat]);
     selected.textContent = path.join(", ");
-    document.getElementById("selectedOptionsLabel")
-        .classList.toggle("hidden", path.length === 0);
+    document.getElementById("selectedOptionsLabel").classList.toggle("hidden", !path.length);
 
-    let nextOptions = [];
-    if (selectedStore === "Amazon" && !selectedVolume) {
-        nextOptions = ["Volumes"];
-    } else if (selectedStore === "Amazon" && selectedVolume && !selectedFormat) {
-        nextOptions = ["Paperback", "Hardcopy"];
-    } else if (selectedStore === "Amazon" && selectedFormat === "Paperback") {
-        nextOptions = ["E-books", "Colouring Book", "Hardcopy"];
-    } else if (selectedStore === "Amazon" && selectedFormat === "Hardcopy") {
-        nextOptions = ["E-books", "Paperback"];
-    } else if (selectedStore === "Amazon" && selectedFormat === "E-books") {
-        nextOptions = ["Paperback", "Hardcopy"];
-    } else if (selectedStore === "Kobo" && !selectedVolume) {
-        nextOptions = ["Volumes"];
+    let next = [];
+    if (selectedStore && selectedType === "individual") {
+        // Individual titles are e-books only. All other formats belong to Volumes.
+        next.push("Volumes");
+    } else if (selectedStore && selectedType === "volume") {
+        if (selectedStore === "Amazon") {
+            const otherFormats = formatOrder.filter(f => f !== selectedFormat);
+            next.push(...otherFormats.map(f => formatLabels[f]));
+        }
     }
-
-    nextOptions.forEach(option => {
+    next.forEach(option => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "navigation-choice";
@@ -1139,371 +1162,165 @@ function renderNavigation() {
         button.addEventListener("click", () => chooseNavigationOption(option));
         choices.appendChild(button);
     });
-
-    const hasOptions = nextOptions.length > 0;
+    const hasOptions = next.length > 0;
     label.classList.toggle("hidden", !hasOptions);
     row.classList.toggle("hidden", !hasOptions);
 }
-
 function chooseStore(store) {
     selectedStore = store;
-    selectedBook = null;
-    selectedBookLanguage = null;
-    selectedVolume = null;
-    // Both stores open in their default E-books view.
-    selectedFormat = "E-books";
-    selectedKoboBook = null;
-    selectedKoboLanguage = null;
-
-    clearPurchaseColumns();
-    document.getElementById("purchaseMessage").classList.add("hidden");
-
-    if (store === "Amazon") {
-        setColumnHeading("bookList", "Book Titles");
-        renderBooks();
-    } else if (store === "Kobo") {
-        setColumnHeading("bookList", "Book Titles");
-        renderKoboBooks();
-    }
-
+    selectedType = "individual";
+    selectedFormat = "ebooks";
+    clearSelection();
+    hideMessage();
+    setColumnHeading("bookList", "Book Titles");
+    renderPublications();
     renderNavigation();
 }
-
 function chooseNavigationOption(option) {
     if (option === "Volumes") {
-        selectedVolume = true;
-        // Volumes also default to the E-books format.
-        selectedFormat = "E-books";
-        selectedBook = null;
-        selectedBookLanguage = null;
-        selectedKoboBook = null;
-        selectedKoboLanguage = null;
-        clearPurchaseColumns();
-        setColumnHeading("bookList", "Volumes");
-        renderVolumeChoices();
-    } else if (option === "Paperback" || option === "Hardcopy" || option === "E-books") {
-        selectedFormat = option;
-        selectedBook = null;
-        selectedBookLanguage = null;
-        clearPurchaseColumns();
-        setColumnHeading("bookList", "Volumes");
-        renderVolumeChoices();
-    } else if (option === "Colouring Book") {
-        selectedFormat = option;
-        clearPurchaseColumns();
-        setColumnHeading("bookList", "Colouring Books");
-        renderVolumeChoices();
+        selectedType = "volume";
+        selectedFormat = "ebooks";
+    } else {
+        const match = Object.entries(formatLabels).find(([, label]) => label === option);
+        if (!match) return;
+        selectedFormat = match[0];
     }
+    clearSelection();
+    hideMessage();
+    setColumnHeading("bookList", selectedType === "volume" ? "Volumes" :
+        selectedFormat === "colouringBooks" ? "Colouring Books" : "Book Titles");
+    renderPublications();
     renderNavigation();
 }
-
-function renderBooks() {
+function renderPublications() {
     const container = document.getElementById("bookList");
     container.innerHTML = "";
-
-    getBookIds().forEach(bookId => {
-        const label = document.createElement("label");
-        label.className = "book-option";
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "book";
-        radio.value = bookId;
-        radio.checked = selectedBook === bookId;
-
-        radio.addEventListener("change", () => {
-            if (!radio.checked) return;
-            selectedBook = bookId;
-            selectedBookLanguage = null;
-            renderBookLanguages();
-            hideSites();
-        });
-
-        label.appendChild(radio);
-        label.appendChild(document.createTextNode(getBookDisplayTitle(bookId)));
-        container.appendChild(label);
-    });
-}
-
-function renderKoboBooks() {
-    const container = document.getElementById("bookList");
-    container.innerHTML = "";
-
-    koboBooks.forEach(book => {
-        const label = document.createElement("label");
-        label.className = "book-option";
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "koboBook";
-        radio.value = book.id;
-
-        radio.addEventListener("change", () => {
-            if (!radio.checked) return;
-            selectedKoboBook = book.id;
-            selectedKoboLanguage = null;
-            renderKoboLanguages();
-            hideSites();
-        });
-
-        label.appendChild(radio);
-        label.appendChild(document.createTextNode(book.title));
-        container.appendChild(label);
-    });
-}
-
-function renderVolumeChoices() {
-    const container = document.getElementById("bookList");
-    container.innerHTML = "";
-
-    const list = selectedStore === "Amazon" ? amazonVolumes : koboVolumes;
-
+    const list = publications.filter(p => p.type === selectedType && editionsForStore(p).length);
     if (!list.length) {
-        const message = document.createElement("p");
-        message.className = "data-pending";
-        message.textContent = "Volume editions will appear here when their publication details are added.";
-        container.appendChild(message);
+        const msg = document.createElement("p");
+        msg.className = "data-pending";
+        msg.textContent = selectedType === "volume"
+            ? "Volume editions in this format will appear here when their publication identifiers are added."
+            : "No published editions are currently listed for this format.";
+        container.appendChild(msg);
         return;
     }
-
-    list.forEach(volume => {
+    list.forEach(publication => {
         const label = document.createElement("label");
         label.className = "book-option";
         const radio = document.createElement("input");
         radio.type = "radio";
-        radio.name = "volume";
-        radio.value = volume.id;
+        radio.name = "publication";
+        radio.value = publication.id;
+        radio.checked = selectedPublication === publication.id;
         radio.addEventListener("change", () => {
             if (!radio.checked) return;
-            renderVolumeLanguages(volume);
+            selectedPublication = publication.id;
+            selectedLanguage = null;
+            hideSites();
+            renderLanguages(publication);
         });
         label.appendChild(radio);
-        label.appendChild(document.createTextNode(volume.title));
+        label.appendChild(document.createTextNode(publication.title));
         container.appendChild(label);
     });
 }
-
-function renderBookLanguages() {
+function renderLanguages(publication) {
     const column = document.getElementById("bookLanguageColumn");
     const container = document.getElementById("bookLanguageList");
     container.innerHTML = "";
-
-    if (!selectedBook) {
+    const editions = editionsForStore(publication);
+    if (!editions.length) {
         column.classList.add("hidden");
         return;
     }
-
-    const records = getBookRecords(selectedBook);
-    records.forEach(record => {
-        const label = document.createElement("label");
-        label.className = "language-option";
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "bookLanguage";
-        radio.value = record.lang;
-        radio.checked = selectedBookLanguage === record.lang;
-
-        radio.addEventListener("change", () => {
-            if (!radio.checked) return;
-            selectedBookLanguage = record.lang;
-            renderSites();
-        });
-
-        label.appendChild(radio);
-        label.appendChild(document.createTextNode(getLanguageName(record.lang)));
-        container.appendChild(label);
-    });
-
-    column.classList.remove("hidden");
-}
-
-function renderKoboLanguages() {
-    const column = document.getElementById("bookLanguageColumn");
-    const container = document.getElementById("bookLanguageList");
-    container.innerHTML = "";
-
-    const book = koboBooks.find(item => item.id === selectedKoboBook);
-    if (!book) {
-        column.classList.add("hidden");
-        return;
-    }
-
-    book.languages.forEach(language => {
-        const label = document.createElement("label");
-        label.className = "language-option";
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "koboLanguage";
-        radio.value = language.code;
-
-        radio.addEventListener("change", () => {
-            if (!radio.checked) return;
-            selectedKoboLanguage = language.code;
-            const message = document.getElementById("purchaseMessage");
-            if (language.url) {
-                window.location.href = language.url;
-            } else {
-                message.textContent = "The Kobo purchase URL for this edition still needs to be entered in the koboBooks data above.";
-                message.classList.remove("hidden");
-            }
-        });
-
-        label.appendChild(radio);
-        label.appendChild(document.createTextNode(language.name));
-        container.appendChild(label);
-    });
-
-    column.classList.remove("hidden");
-}
-
-function renderVolumeLanguages(volume) {
-    const column = document.getElementById("bookLanguageColumn");
-    const container = document.getElementById("bookLanguageList");
-    container.innerHTML = "";
-
-    (volume.languages || []).forEach(language => {
+    editions.forEach(edition => {
         const label = document.createElement("label");
         label.className = "language-option";
         const radio = document.createElement("input");
         radio.type = "radio";
-        radio.name = "volumeLanguage";
-        radio.value = language.code;
+        radio.name = "publicationLanguage";
+        radio.value = edition.language;
+        radio.checked = selectedLanguage === edition.language;
         radio.addEventListener("change", () => {
             if (!radio.checked) return;
+            selectedLanguage = edition.language;
             if (selectedStore === "Kobo") {
-                if (language.url) window.location.href = language.url;
+                const url = getKoboURL(edition);
+                if (url) window.location.href = url;
+                else showMessage("The Kobo identifier for this language edition has not yet been entered.");
             } else {
-                const sites = language.sites || [];
-                renderVolumeSites(sites);
+                renderAmazonStores(edition);
             }
         });
         label.appendChild(radio);
-        label.appendChild(document.createTextNode(language.name || getLanguageName(language.code)));
+        label.appendChild(document.createTextNode(getLanguageName(edition.language)));
         container.appendChild(label);
     });
-
     column.classList.remove("hidden");
 }
-
-function renderSites() {
+function renderAmazonStores(edition) {
     const column = document.getElementById("siteColumn");
     const container = document.getElementById("siteList");
     container.innerHTML = "";
-
-    if (!selectedBook || !selectedBookLanguage) {
+    if (!edition.amazonASIN) {
         column.classList.add("hidden");
+        showMessage("The Amazon ASIN for this language edition has not yet been entered.");
         return;
     }
-
     amazonSites.forEach(site => {
         const label = document.createElement("label");
         label.className = "site-option";
-
         const radio = document.createElement("input");
         radio.type = "radio";
         radio.name = "amazonSite";
         radio.value = site.code;
-
         radio.addEventListener("change", () => {
-            if (!radio.checked) return;
-            const record = books.find(
-                b => b.book === selectedBook && b.lang === selectedBookLanguage
-            );
-            if (!record) return;
-
-            const url = "https://" + site.domain + "/dp/" + record.asin;
-            window.location.href = url;
+            if (radio.checked) window.location.href = "https://" + site.domain + "/dp/" + edition.amazonASIN;
         });
-
         label.appendChild(radio);
         label.appendChild(document.createTextNode(site.name));
         container.appendChild(label);
     });
-
     column.classList.remove("hidden");
 }
-
-function renderVolumeSites(sites) {
-    const column = document.getElementById("siteColumn");
-    const container = document.getElementById("siteList");
-    container.innerHTML = "";
-
-    sites.forEach(site => {
-        const label = document.createElement("label");
-        label.className = "site-option";
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "volumeSite";
-        radio.value = site.code;
-        radio.addEventListener("change", () => {
-            if (radio.checked && site.url) window.location.href = site.url;
-        });
-        label.appendChild(radio);
-        label.appendChild(document.createTextNode(site.name));
-        container.appendChild(label);
-    });
-
-    column.classList.toggle("hidden", !sites.length);
-}
-
 function hideSites() {
     document.getElementById("siteList").innerHTML = "";
     document.getElementById("siteColumn").classList.add("hidden");
 }
-
 function renderText() {
     document.getElementById("statement").textContent =
         "I believe that every Parent and child-reader alike, should be given the pleasure to read in their own language.";
-
     document.getElementById("specialThanks").textContent =
         "Special Thanks — With special thanks to Hamish Wordsworth for allowing me to recycle this website. As a special thank-you, his children's books are also featured on this page.";
 }
-
 function renderAll() {
     renderText();
-    renderNavigation();
     clearPurchaseColumns();
     document.getElementById("bookList").innerHTML = "";
     setColumnHeading("bookList", "");
-    document.getElementById("purchaseMessage").classList.add("hidden");
-}
-
-function resetBookSelection() {
-    selectedBook = null;
-    selectedBookLanguage = null;
-    selectedKoboBook = null;
-    selectedKoboLanguage = null;
-    clearPurchaseColumns();
+    hideMessage();
     renderNavigation();
 }
-
-window.addEventListener("pageshow", function() {
-    selectedStore = null;
-    selectedBook = null;
-    selectedBookLanguage = null;
-    selectedVolume = null;
-    selectedFormat = null;
-    selectedKoboBook = null;
-    selectedKoboLanguage = null;
-    renderAll();
-});
-
 function toggleSeriesLanguages() {
     document.getElementById("seriesLanguageMenu").classList.toggle("show");
 }
-
-document.addEventListener("click", function(event) {
+window.addEventListener("pageshow", () => {
+    selectedStore = null;
+    selectedType = "individual";
+    selectedFormat = "ebooks";
+    clearSelection();
+    renderAll();
+});
+document.addEventListener("click", event => {
     const menu = document.getElementById("seriesLanguageMenu");
     const button = document.querySelector(".series-logo-button");
-    if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) {
-        menu.classList.remove("show");
-    }
+    if (menu && button && !menu.contains(event.target) && !button.contains(event.target)) menu.classList.remove("show");
 });
-
 renderAll();
 
+/* Basic integrity checks: the preserved original ASINs are not overwritten. */
+console.info("Unified catalogue loaded:", publications.length, "publications");
 </script>
 <!-- Cloudflare Web Analytics -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "43debb85834c428987d7a4f86db07461"}'></script>
