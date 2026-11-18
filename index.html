@@ -489,9 +489,11 @@ input[type="radio"] {
 
 <script>
 /* =========================================================
-   UNIFIED PUBLICATION CATALOGUE — VERSION 11
+   UNIFIED PUBLICATION CATALOGUE — VERSION 13
 
-   One master record per publication. Each available format has language
+   One master record per publication. The guide comments list the 23-language
+   catalogue order: original 12 languages followed by 11 Kobo expansion languages.
+   Each available format has language
    editions; each language edition can hold its own Amazon ASIN
    and/or Kobo identifier. Individual titles are e-books only; the
    additional formats are reserved for volumes. Empty identifiers mean not published
@@ -503,6 +505,10 @@ input[type="radio"] {
    ========================================================= */
 
 const publications = [
+    /* =========================================================
+       BOOK 1
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book1",
         "title": "The Cubs' Mission",
@@ -577,6 +583,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 2
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book2",
         "title": "Safety in the Herd",
@@ -646,6 +656,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 3
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book3",
         "title": "No Means No",
@@ -715,6 +729,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 4
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book4",
         "title": "Care and Harmony",
@@ -784,6 +802,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 5
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book5",
         "title": "Better Wise Than Swift",
@@ -853,6 +875,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 6
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book6",
         "title": "Leopard! Leopard!",
@@ -922,6 +948,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 97
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book97",
         "title": "Head, shoulders, knees and toes",
@@ -951,6 +981,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 98
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book98",
         "title": "Please eat cookie Mummy",
@@ -965,6 +999,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 99
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book99",
         "title": "Please eat cookie Daddy",
@@ -979,6 +1017,10 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       BOOK 100
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "book100",
         "title": "Cuddles",
@@ -993,23 +1035,31 @@ const publications = [
             ]
         }
     },
+    /* =========================================================
+       VOLUME 1
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "volume1",
         "title": "World Animal Tales - Volume 1",
         "type": "volume",
         "formats": {
             "ebooks": [
-    		{
-	        "language": "en",
-	        "amazonASIN": "B0HJ3ZM5L7",
-        	"koboCode": ""
-    }
-],
+                {
+                    "language": "en",
+                    "amazonASIN": "B0HJ3ZM5L7",
+                    "koboCode": ""
+                }
+            ],
             "paperbacks": [],
             "hardcopies": [],
             "colouringBooks": []
         }
     },
+    /* =========================================================
+       VOLUME 2
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       ========================================================= */
     {
         "id": "volume2",
         "title": "World Animal Tales - Volume 2",
@@ -1023,7 +1073,8 @@ const publications = [
     }
 ];
 
-/* Website language labels (the website itself remains English). */
+/* Website language labels (the website itself remains English).
+   A label does not create an edition; only populated catalogue identifiers are offered. */
 const languageNames = {
     en: "English",
     hi: "Hindi",
@@ -1037,7 +1088,17 @@ const languageNames = {
     it: "Italian",
     nl: "Dutch",
     af: "Afrikaans",
-    pa: "Punjabi"
+    pa: "Punjabi",
+    th: "Thai",
+    ko: "Korean",
+    mi: "Māori",
+    "zh-CN": "Simplified Chinese",
+    bn: "Bengali",
+    el: "Greek",
+    cs: "Czech",
+    ro: "Romanian",
+    sk: "Slovakian",
+    ne: "Nepalese"
 };
 
 /* Amazon regional stores — original V10 list retained verbatim. */
