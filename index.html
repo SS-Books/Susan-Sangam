@@ -489,18 +489,18 @@ input[type="radio"] {
 
 <script>
 /* =========================================================
-   UNIFIED PUBLICATION CATALOGUE — VERSION 13
+   UNIFIED PUBLICATION CATALOGUE — VERSION 14
 
    One master record per publication. The guide comments list the 23-language
    catalogue order: original 12 languages followed by 11 Kobo expansion languages.
-   Each available format has language
-   editions; each language edition can hold its own Amazon ASIN
-   and/or Kobo identifier. Individual titles are e-books only; the
-   additional formats are reserved for volumes. Empty identifiers mean not published
-   on that platform yet. Existing identifiers are preserved.
+   Each available format has language editions; each language edition can hold
+   its own Amazon ASIN and/or Kobo identifier. Individual titles are e-books only.
+   Volumes are Amazon-only from this version onward; Kobo remains available for
+   individual titles. Empty identifiers mean not published on that platform yet.
+   Existing identifiers are preserved.
 
-   Individual publications: ebooks only.
-   Volume publications: ebooks, paperbacks, hardcopies, colouringBooks.
+   Individual publications: ebooks only (Amazon and/or Kobo).
+   Volume publications: Amazon ebooks, paperbacks, hardcopies, colouringBooks.
    Publication types: individual, volume.
    ========================================================= */
 
@@ -1206,10 +1206,10 @@ function renderNavigation() {
     document.getElementById("selectedOptionsLabel").classList.toggle("hidden", !path.length);
 
     let next = [];
-    if (selectedStore && selectedType === "individual") {
-        // Individual titles are e-books only. All other formats belong to Volumes.
+    if (selectedStore === "Amazon" && selectedType === "individual") {
+        // Volumes are Amazon-only; Kobo is reserved for individual titles.
         next.push("Volumes");
-    } else if (selectedStore && selectedType === "volume") {
+    } else if (selectedStore === "Amazon" && selectedType === "volume") {
         if (selectedStore === "Amazon") {
             const otherFormats = formatOrder.filter(f => f !== selectedFormat);
             next.push(...otherFormats.map(f => formatLabels[f]));
