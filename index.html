@@ -489,15 +489,14 @@ input[type="radio"] {
 
 <script>
 /* =========================================================
-   UNIFIED PUBLICATION CATALOGUE — VERSION 14
+   UNIFIED PUBLICATION CATALOGUE — VERSION 15
 
-   One master record per publication. The guide comments list the 23-language
-   catalogue order: original 12 languages followed by 11 Kobo expansion languages.
-   Each available format has language editions; each language edition can hold
-   its own Amazon ASIN and/or Kobo identifier. Individual titles are e-books only.
-   Volumes are Amazon-only from this version onward; Kobo remains available for
-   individual titles. Empty identifiers mean not published on that platform yet.
-   Existing identifiers are preserved.
+   One master record per publication. The guide comments list 22 selected languages:
+   12 Amazon languages and 10 Kobo languages. Platform editions are kept separate:
+   Amazon language editions contain Amazon ASINs only; Kobo language editions contain
+   Kobo identifiers only. The catalogue retains the selected Kobo languages so
+   further Kobo publishing remains possible, but only populated Kobo identifiers
+   appear as published editions. Volumes are Amazon-only; Kobo is for individual titles.
 
    Individual publications: ebooks only (Amazon and/or Kobo).
    Volume publications: Amazon ebooks, paperbacks, hardcopies, colouringBooks.
@@ -507,7 +506,7 @@ input[type="radio"] {
 const publications = [
     /* =========================================================
        BOOK 1
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book1",
@@ -517,75 +516,70 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0H9LH54M3",
-                    "koboCode": ""
+                    "amazonASIN": "B0H9LH54M3"
                 },
                 {
                     "language": "hi",
-                    "amazonASIN": "B0H9L6NZQ4",
-                    "koboCode": ""
+                    "amazonASIN": "B0H9L6NZQ4"
                 },
                 {
                     "language": "es",
-                    "amazonASIN": "B0H9M99TMD",
-                    "koboCode": ""
+                    "amazonASIN": "B0H9M99TMD"
                 },
                 {
                     "language": "fr",
-                    "amazonASIN": "B0H9RXK27K",
-                    "koboCode": ""
+                    "amazonASIN": "B0H9RXK27K"
                 },
                 {
                     "language": "pt",
-                    "amazonASIN": "B0H9RZCF5V",
-                    "koboCode": ""
+                    "amazonASIN": "B0H9RZCF5V"
                 },
                 {
                     "language": "ar",
-                    "amazonASIN": "B0H13SXQR3",
-                    "koboCode": ""
+                    "amazonASIN": "B0H13SXQR3"
                 },
                 {
                     "language": "zh",
-                    "amazonASIN": "B0H5X6DT93",
-                    "koboCode": ""
+                    "amazonASIN": "B0H5X6DT93"
                 },
                 {
                     "language": "de",
-                    "amazonASIN": "B0H9VN8T66",
-                    "koboCode": ""
+                    "amazonASIN": "B0H9VN8T66"
                 },
                 {
                     "language": "ja",
-                    "amazonASIN": "B0H9V71LW1",
-                    "koboCode": ""
+                    "amazonASIN": "B0H9V71LW1"
                 },
                 {
                     "language": "it",
-                    "amazonASIN": "B0H9WDJXCC",
-                    "koboCode": ""
+                    "amazonASIN": "B0H9WDJXCC"
                 },
                 {
                     "language": "nl",
-                    "amazonASIN": "B0HBM3G9SY",
-                    "koboCode": ""
+                    "amazonASIN": "B0HBM3G9SY"
                 },
                 {
                     "language": "af",
-                    "amazonASIN": "B0H4WTZX8W",
-                    "koboCode": ""
+                    "amazonASIN": "B0H4WTZX8W"
                 },
                 {
                     "language": "pa",
-                    "amazonASIN": "",
                     "koboCode": "G31v-6dj6TKsQHHm5mZ8Pw"
+                },
+                {
+                    "language": "mi",
+                    "koboCode": "te-mihana-a-nga-kuao-taika"
+                },
+                {
+                    "language": "th",
+                    "koboCode": "h_McU3vxWDaNNfI0JcUgRw"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 2
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book2",
@@ -595,70 +589,58 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0HC55MNYF",
-                    "koboCode": ""
+                    "amazonASIN": "B0HC55MNYF"
                 },
                 {
                     "language": "hi",
-                    "amazonASIN": "B0HCXTL88C",
-                    "koboCode": ""
+                    "amazonASIN": "B0HCXTL88C"
                 },
                 {
                     "language": "es",
-                    "amazonASIN": "B0HCNJX3QS",
-                    "koboCode": ""
+                    "amazonASIN": "B0HCNJX3QS"
                 },
                 {
                     "language": "fr",
-                    "amazonASIN": "B0HCTFHK98",
-                    "koboCode": ""
+                    "amazonASIN": "B0HCTFHK98"
                 },
                 {
                     "language": "pt",
-                    "amazonASIN": "B0HCTVH729",
-                    "koboCode": ""
+                    "amazonASIN": "B0HCTVH729"
                 },
                 {
                     "language": "ar",
-                    "amazonASIN": "B0HCY3LG2K",
-                    "koboCode": ""
+                    "amazonASIN": "B0HCY3LG2K"
                 },
                 {
                     "language": "zh",
-                    "amazonASIN": "B0HCYFFWK3",
-                    "koboCode": ""
+                    "amazonASIN": "B0HCYFFWK3"
                 },
                 {
                     "language": "de",
-                    "amazonASIN": "B0HG4F8TWM",
-                    "koboCode": ""
+                    "amazonASIN": "B0HG4F8TWM"
                 },
                 {
                     "language": "ja",
-                    "amazonASIN": "B0HGP9GWT5",
-                    "koboCode": ""
+                    "amazonASIN": "B0HGP9GWT5"
                 },
                 {
                     "language": "it",
-                    "amazonASIN": "B0HGPF74LM",
-                    "koboCode": ""
+                    "amazonASIN": "B0HGPF74LM"
                 },
                 {
                     "language": "nl",
-                    "amazonASIN": "B0HGQH4JS7",
-                    "koboCode": ""
+                    "amazonASIN": "B0HGQH4JS7"
                 },
                 {
                     "language": "af",
-                    "amazonASIN": "B0HGQM3GT3",
-                    "koboCode": ""
+                    "amazonASIN": "B0HGQM3GT3"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 3
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book3",
@@ -668,70 +650,58 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0HCLDR5WS",
-                    "koboCode": ""
+                    "amazonASIN": "B0HCLDR5WS"
                 },
                 {
                     "language": "hi",
-                    "amazonASIN": "B0HHGBRJNZ",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHGBRJNZ"
                 },
                 {
                     "language": "es",
-                    "amazonASIN": "B0HHJ2YVXZ",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHJ2YVXZ"
                 },
                 {
                     "language": "fr",
-                    "amazonASIN": "B0HHKW1J8C",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHKW1J8C"
                 },
                 {
                     "language": "pt",
-                    "amazonASIN": "B0HHKSR796",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHKSR796"
                 },
                 {
                     "language": "ar",
-                    "amazonASIN": "B0HHN115MX",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHN115MX"
                 },
                 {
                     "language": "zh",
-                    "amazonASIN": "B0HHQQLL5L",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHQQLL5L"
                 },
                 {
                     "language": "de",
-                    "amazonASIN": "B0HHQ97FQ4",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHQ97FQ4"
                 },
                 {
                     "language": "ja",
-                    "amazonASIN": "B0HHTQ7ZNW",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHTQ7ZNW"
                 },
                 {
                     "language": "it",
-                    "amazonASIN": "B0HHTSVMYD",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHTSVMYD"
                 },
                 {
                     "language": "nl",
-                    "amazonASIN": "B0HHYB2F6M",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHYB2F6M"
                 },
                 {
                     "language": "af",
-                    "amazonASIN": "B0HHYC3BPP",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHYC3BPP"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 4
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book4",
@@ -741,70 +711,58 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0HFC7D2B3",
-                    "koboCode": ""
+                    "amazonASIN": "B0HFC7D2B3"
                 },
                 {
                     "language": "hi",
-                    "amazonASIN": "B0HJBDQLLF",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJBDQLLF"
                 },
                 {
                     "language": "es",
-                    "amazonASIN": "B0HJBJQSRG",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJBJQSRG"
                 },
                 {
                     "language": "fr",
-                    "amazonASIN": "B0HJCYDTGB",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJCYDTGB"
                 },
                 {
                     "language": "pt",
-                    "amazonASIN": "B0HJD3M51M",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJD3M51M"
                 },
                 {
                     "language": "ar",
-                    "amazonASIN": "B0HJD8RGNH",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJD8RGNH"
                 },
                 {
                     "language": "zh",
-                    "amazonASIN": "B0HJFHF5L1",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJFHF5L1"
                 },
                 {
                     "language": "de",
-                    "amazonASIN": "B0HJNMGK27",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJNMGK27"
                 },
                 {
                     "language": "ja",
-                    "amazonASIN": "B0HJNLJZ8K",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJNLJZ8K"
                 },
                 {
                     "language": "it",
-                    "amazonASIN": "B0HJNMTRJP",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJNMTRJP"
                 },
                 {
                     "language": "nl",
-                    "amazonASIN": "B0HCTS2D21",
-                    "koboCode": ""
+                    "amazonASIN": "B0HCTS2D21"
                 },
                 {
                     "language": "af",
-                    "amazonASIN": "B0HJNJG91P",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJNJG91P"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 5
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book5",
@@ -814,70 +772,58 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0HFZDDQZF",
-                    "koboCode": ""
+                    "amazonASIN": "B0HFZDDQZF"
                 },
                 {
                     "language": "hi",
-                    "amazonASIN": "B0HJPMPZNR",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJPMPZNR"
                 },
                 {
                     "language": "es",
-                    "amazonASIN": "B0HJPH4DC4",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJPH4DC4"
                 },
                 {
                     "language": "fr",
-                    "amazonASIN": "B0HJP8SG7H",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJP8SG7H"
                 },
                 {
                     "language": "pt",
-                    "amazonASIN": "B0HB564T8V",
-                    "koboCode": ""
+                    "amazonASIN": "B0HB564T8V"
                 },
                 {
                     "language": "ar",
-                    "amazonASIN": "B0HJQ7N2CG",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJQ7N2CG"
                 },
                 {
                     "language": "zh",
-                    "amazonASIN": "B0HKDZWWXT",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKDZWWXT"
                 },
                 {
                     "language": "de",
-                    "amazonASIN": "B0HKF5CQFZ",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKF5CQFZ"
                 },
                 {
                     "language": "ja",
-                    "amazonASIN": "B0HKFFXCRG",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKFFXCRG"
                 },
                 {
                     "language": "it",
-                    "amazonASIN": "B0HKFJ4ZZY",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKFJ4ZZY"
                 },
                 {
                     "language": "nl",
-                    "amazonASIN": "B0HKFBK3PF",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKFBK3PF"
                 },
                 {
                     "language": "af",
-                    "amazonASIN": "B0HKFDQGG3",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKFDQGG3"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 6
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book6",
@@ -887,70 +833,58 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0HHYR1RNL",
-                    "koboCode": ""
+                    "amazonASIN": "B0HHYR1RNL"
                 },
                 {
                     "language": "hi",
-                    "amazonASIN": "B0HKFCMVQL",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKFCMVQL"
                 },
                 {
                     "language": "es",
-                    "amazonASIN": "B0HKFQHVZL",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKFQHVZL"
                 },
                 {
                     "language": "fr",
-                    "amazonASIN": "B0HKFCC537",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKFCC537"
                 },
                 {
                     "language": "pt",
-                    "amazonASIN": "B0HKFG9JVS",
-                    "koboCode": ""
+                    "amazonASIN": "B0HKFG9JVS"
                 },
                 {
                     "language": "ar",
-                    "amazonASIN": "B0HL61K2VL",
-                    "koboCode": ""
+                    "amazonASIN": "B0HL61K2VL"
                 },
                 {
                     "language": "zh",
-                    "amazonASIN": "B0HL5MNRLK",
-                    "koboCode": ""
+                    "amazonASIN": "B0HL5MNRLK"
                 },
                 {
                     "language": "de",
-                    "amazonASIN": "B0HQ3B6TW3",
-                    "koboCode": ""
+                    "amazonASIN": "B0HQ3B6TW3"
                 },
                 {
                     "language": "ja",
-                    "amazonASIN": "B0HQZ5MLLL",
-                    "koboCode": ""
+                    "amazonASIN": "B0HQZ5MLLL"
                 },
                 {
                     "language": "it",
-                    "amazonASIN": "B0HQYZKBJT",
-                    "koboCode": ""
+                    "amazonASIN": "B0HQYZKBJT"
                 },
                 {
                     "language": "nl",
-                    "amazonASIN": "B0HRRXX55V",
-                    "koboCode": ""
+                    "amazonASIN": "B0HRRXX55V"
                 },
                 {
                     "language": "af",
-                    "amazonASIN": "B0HRR8659G",
-                    "koboCode": ""
+                    "amazonASIN": "B0HRR8659G"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 97
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book97",
@@ -960,30 +894,26 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0F4P98VSB",
-                    "koboCode": ""
+                    "amazonASIN": "B0F4P98VSB"
                 },
                 {
                     "language": "hi",
-                    "amazonASIN": "B0HDRPCBCB",
-                    "koboCode": ""
+                    "amazonASIN": "B0HDRPCBCB"
                 },
                 {
                     "language": "es",
-                    "amazonASIN": "B0HDRSGXD6",
-                    "koboCode": ""
+                    "amazonASIN": "B0HDRSGXD6"
                 },
                 {
                     "language": "fr",
-                    "amazonASIN": "B0HDRX5PC3",
-                    "koboCode": ""
+                    "amazonASIN": "B0HDRX5PC3"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 98
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book98",
@@ -993,15 +923,14 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0F4Q41SY4",
-                    "koboCode": ""
+                    "amazonASIN": "B0F4Q41SY4"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 99
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book99",
@@ -1011,15 +940,14 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0F4Q4CHGP",
-                    "koboCode": ""
+                    "amazonASIN": "B0F4Q4CHGP"
                 }
             ]
         }
     },
     /* =========================================================
        BOOK 100
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "book100",
@@ -1029,15 +957,14 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0F4M5L23S",
-                    "koboCode": ""
+                    "amazonASIN": "B0F4M5L23S"
                 }
             ]
         }
     },
     /* =========================================================
        VOLUME 1
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "volume1",
@@ -1047,8 +974,7 @@ const publications = [
             "ebooks": [
                 {
                     "language": "en",
-                    "amazonASIN": "B0HJ3ZM5L7",
-                    "koboCode": ""
+                    "amazonASIN": "B0HJ3ZM5L7"
                 }
             ],
             "paperbacks": [],
@@ -1058,7 +984,7 @@ const publications = [
     },
     /* =========================================================
        VOLUME 2
-       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk ne
+       en hi es fr pt ar zh de ja it nl af pa th ko mi zh-CN bn el cs ro sk
        ========================================================= */
     {
         "id": "volume2",
@@ -1074,7 +1000,8 @@ const publications = [
 ];
 
 /* Website language labels (the website itself remains English).
-   A label does not create an edition; only populated catalogue identifiers are offered. */
+   These labels cover the 12 Amazon languages and 10 selected Kobo languages.
+   A label does not create an edition; only a populated platform identifier is offered. */
 const languageNames = {
     en: "English",
     hi: "Hindi",
