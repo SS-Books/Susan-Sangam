@@ -635,7 +635,7 @@ function playVideo(filename, title) {
     document.querySelector(".video-menu-button").setAttribute("aria-expanded", "false");
     document.getElementById("videoTitle").textContent = title;
     player.pause();
-    player.src = "videos/" + encodeURIComponent(filename).replace(/%20/g, "%20");
+    player.src = "Videos/" + encodeURIComponent(filename).replace(/%20/g, "%20");
     player.load();
     overlay.classList.add("show");
     const playAttempt = player.play();
