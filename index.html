@@ -635,7 +635,7 @@ function playVideo(filename, title) {
     document.querySelector(".video-menu-button").setAttribute("aria-expanded", "false");
     document.getElementById("videoTitle").textContent = title;
     player.pause();
-    player.src = "Videos/" + encodeURIComponent(filename).replace(/%20/g, "%20");
+    player.src = "videos/" + encodeURIComponent(filename).replace(/%20/g, "%20");
     player.load();
     overlay.classList.add("show");
     const playAttempt = player.play();
@@ -753,6 +753,18 @@ const publications = [
                 {
                     "language": "th",
                     "koboCode": "h_McU3vxWDaNNfI0JcUgRw"
+                }
+                {
+                    "language": "el",
+                    "koboCode": "qZC7ew8nijOTKwChse1RUQ"
+                }
+                {
+                    "language": "zh-CN",
+                    "koboCode": "dyrGcan1Dz2LJUCGRb2cMA"
+                }
+                {
+                    "language": "ko",
+                    "koboCode": "9QHJB-ncWzC_lemX7XPVxw"
                 }
             ]
         }
